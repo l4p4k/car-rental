@@ -28,4 +28,9 @@ Route::group(['middleware' => 'web'], function () {
         'as' => 'post.new'
     ]);
 
+    Route::post('/makepost', [
+        'uses' => 'PostController@make_post',
+        'as' => 'post.make'
+    ]);
+
 });
