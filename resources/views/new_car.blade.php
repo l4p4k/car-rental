@@ -16,6 +16,11 @@
 
                             <div class="col-md-6">
                                 <input type="text" class="form-control" name="title" value="{{ old('title') }}" maxlength="50">
+                                @if ($errors->has('title'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('title') }}</strong>
+                                    </span>
+                                @endif                                
                             </div>
                         </div>
 
@@ -24,6 +29,11 @@
 
                             <div class="col-md-6">
                                 <textarea class="form-control" name="desc" value="{{ old('desc') }}" cols="40" rows="3"  maxlength="255"></textarea>
+                                @if ($errors->has('desc'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('desc') }}</strong>
+                                    </span>
+                                @endif                                
                             </div>
                         </div>    
 
@@ -32,22 +42,27 @@
 
                             <div class="col-md-6">
                                 <select class="form-control" name="make" value="{{ old('make') }}">
-                                    <option value="aston">Aston Martin</option>
-                                    <option value="bentley">Bentley</option>
-                                    <option value="jaguar">Jaguar</option>
-                                    <option value="landrover">Land Rover</option>
-                                    <option value="mclaren">McLaren</option>   
-                                    <option value="mini">Mini</option>
-                                    <option value="royce">Rolls Royce</option>
-                                    <option value="chevrolet">Chevrolet</option>
-                                    <option value="cadillac">Cadillac</option>
-                                    <option value="chrystler">Chrystler</option>
-                                    <option value="dodge">Dodge</option>
-                                    <option value="ford">Ford</option>
-                                    <option value="gmc">GMC</option>
-                                    <option value="jeep">Jeep</option>
-                                    <option value="tesla">Tesla</option>
+                                    <option value="Aston Martin">Aston Martin</option>
+                                    <option value="Bentley">Bentley</option>
+                                    <option value="Jaguar">Jaguar</option>
+                                    <option value="Land Rover">Land Rover</option>
+                                    <option value="McLaren">McLaren</option>   
+                                    <option value="Mini">Mini</option>
+                                    <option value="Rolls Royce">Rolls Royce</option>
+                                    <option value="Chevrolet">Chevrolet</option>
+                                    <option value="Cadillac">Cadillac</option>
+                                    <option value="Chrystler">Chrystler</option>
+                                    <option value="Dodge">Dodge</option>
+                                    <option value="Ford">Ford</option>
+                                    <option value="GMC">GMC</option>
+                                    <option value="Jeep">Jeep</option>
+                                    <option value="Tesla">Tesla</option>
                                 </select>
+                                @if ($errors->has('make'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('make') }}</strong>
+                                    </span>
+                                @endif                                
                             </div>
                         </div>   
 
@@ -56,6 +71,11 @@
 
                             <div class="col-md-6">
                                 <input type="text" class="form-control" name="model" value="{{ old('model') }}" maxlength="30">
+                                @if ($errors->has('model'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('model') }}</strong>
+                                    </span>
+                                @endif                                
                             </div>
                         </div>                                         
 

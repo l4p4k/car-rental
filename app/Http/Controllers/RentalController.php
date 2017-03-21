@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 use App\carRental as Rental;
 
 use Auth;
+use Validator;
+use URL;
 
 class RentalController extends Controller
 {
@@ -23,7 +26,6 @@ class RentalController extends Controller
 
     public function db_add_rental(Request $request)
     {
-        $car_rental = new Rental();
 
         //get authorised user's ID
         $user_id = Auth::user()->id;
@@ -35,7 +37,27 @@ class RentalController extends Controller
             'model' => $request->input('model'),
         );
 
-        $insert = $car_rental->db_add_rental($user_id, $formData['title'], $formData['desc'], $formData['make'],$formData['model']);
-        return view('profile');
+        // Build the validation rules.
+        $rules = array(
+            'title' => 'required|string|max:50|min:10',
+            'desc' => 'string|max:255',
+            'make' => 'string|max:20',
+            'model' => 'string|max:30',
+        );
+
+        // Create a new validator instance.
+        $validator = Validator::make($formData, $rules);
+
+        // If data is not valid
+        if ($validator->fails()) {
+            return Redirect::to(URL::previous())->withErrors($validator)->withInput();
+        }         
+
+        // If the data passes validation
+        if ($validator->passes()) {
+            $car_rental = new Rental();
+            $insert = $car_rental->db_add_rental($user_id, $formData['title'], $formData['desc'], $formData['make'],$formData['model']);
+            return redirect()->route('profile');
+        }
     }
 }
