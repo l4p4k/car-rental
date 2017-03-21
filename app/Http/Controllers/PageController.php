@@ -14,7 +14,7 @@ class PageController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth', ['except' => ['index']]);
     }
 
     /**
@@ -22,13 +22,18 @@ class PageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function profile()
     {
-        return view('home');
+        return view('profile');
     }
 
-    public function newpost()
+    public function index()
     {
-        return view('newpost');
+        return view('welcome');
+    }
+
+    public function view_new_car()
+    {
+        return view('new_car');
     }
 }

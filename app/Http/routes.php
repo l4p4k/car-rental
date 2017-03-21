@@ -11,9 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Route::group(['middleware' => 'web'], function () {
     //set xdebug level to 200 for a higher recursive method threshold
@@ -21,16 +18,24 @@ Route::group(['middleware' => 'web'], function () {
 
 	Route::auth();
 
-	Route::get('/home', 'PageController@index');
-
-    Route::get('/newpost', [
-        'uses' => 'PageController@newpost',
-        'as' => 'post.new'
+    Route::get('/profile', [
+        'uses' => 'PageController@profile',
+        'as' => 'profile'
     ]);
 
-    Route::post('/makepost', [
-        'uses' => 'PostController@make_post',
-        'as' => 'post.make'
+    Route::get('/', [
+        'uses' => 'PageController@index',
+        'as' => 'home'
+    ]);
+
+    Route::get('/new_rental', [
+        'uses' => 'PageController@view_new_car',
+        'as' => 'rental.page'
+    ]);
+
+    Route::post('/add_car', [
+        'uses' => 'RentalController@db_add_rental',
+        'as' => 'rental.form'
     ]);
 
 });
