@@ -42,6 +42,7 @@
 
                             <div class="col-md-6">
                                 <select class="form-control" name="make" value="{{ old('make') }}">
+                                    <option value="">--- Choose a car make ---</option>
                                     <option value="Aston Martin">Aston Martin</option>
                                     <option value="Bentley">Bentley</option>
                                     <option value="Jaguar">Jaguar</option>
@@ -77,7 +78,92 @@
                                     </span>
                                 @endif                                
                             </div>
-                        </div>                                         
+                        </div>        
+
+                        <div class="form-group{{ $errors->has('type') ? ' has-error' : '' }}">
+                            <label class="col-md-4 control-label">*Car type</label>
+
+                            <div class="col-md-6">
+                                <select class="form-control" name="type" value="{{ old('type') }}">
+                                    <option value="">--- Choose a car type ---</option>
+                                    <option value="Small">Small</option>
+                                    <option value="Hatchback">Hatchback</option>
+                                    <option value="Long">Saloon/Sedan</option>
+                                    <option value="Estate">Estate</option>  
+                                    <option value="Race">Race/Sports</option>
+                                    <option value="Convertible">Convertible</option>
+                                    <option value="Big">4x4/SUV</option>
+                                    <option value="MVP">MPV</option>  
+                                    <option value="Other">Other</option>
+                                </select>
+                                @if ($errors->has('type'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('type') }}</strong>
+                                    </span>
+                                @endif                                
+                            </div>
+                        </div> 
+
+                        <div class="form-group{{ $errors->has('fuel') ? ' has-error' : '' }}">
+                            <label class="col-md-4 control-label">*Fuel type</label>
+
+                            <div class="col-md-6">
+                                <select class="form-control" name="fuel" value="{{ old('fuel') }}">
+                                    <option value="">--- Choose a fuel type ---</option>
+                                    <option value="Petrol">Petrol</option>
+                                    <option value="Diesel">Diesel</option>
+                                    <option value="LPG">LPG Autogas</option>
+                                    <option value="Biofuel">Biofuel</option>
+                                    <option value="Hybrid">Hybrid</option>
+                                    <option value="Electric">Electric</option>
+                                    <option value="x">Other</option>
+                                </select>
+                                @if ($errors->has('fuel'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('fuel') }}</strong>
+                                    </span>
+                                @endif                                
+                            </div>
+                        </div>  
+
+                        <div class="form-group{{ $errors->has('transmission') ? ' has-error' : '' }}">
+                            <label class="col-md-4 control-label">*Transmission type</label>
+
+                            <div class="col-md-6">
+                                <select class="form-control" name="transmission" value="{{ old('transmission') }}">
+                                    <option value="">--- Choose transmission type ---</option>
+                                    <option value="1">Manual</option>
+                                    <option value="2">Automatic</option>
+                                    <option value="x">Other</option>
+                                </select>
+                                @if ($errors->has('transmission'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('transmission') }}</strong>
+                                    </span>
+                                @endif                                
+                            </div>
+                        </div>
+
+                        <div class="form-group{{ $errors->has('doors') ? ' has-error' : '' }}">
+                            <label class="col-md-4 control-label">*Number of doors</label>
+
+                            <div class="col-md-6">
+                                <select class="form-control" name="doors" value="{{ old('doors') }}">
+                                    <option value="">--- Choose number of doors ---</option>
+                                    @for($i=1; $i <= 10; $i++)
+                                    <option value="{{$i}}">{{$i}}</option>
+                                    @endfor
+                                    <option value="x">Other</option>
+                                </select>
+                                @if ($errors->has('doors'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('doors') }}</strong>
+                                    </span>
+                                @endif                                
+                            </div>
+                        </div>
+
+                        <p>* Required</p>
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
@@ -86,7 +172,6 @@
                                 </button>
                             </div>
                         </div>
-
                     </form>
                 </div>
             </div>

@@ -22,7 +22,7 @@ class CreateCarRentalTable extends Migration
             $table->string('type', 20);
             $table->string('fuel', 10);
             $table->string('transmission', 1);
-            $table->string('doors');
+            $table->string('doors', 2);
             $table->double('engine_cc', 3, 2);
             $table->string('mpg', 3);
             $table->string('contract_length', 50);
