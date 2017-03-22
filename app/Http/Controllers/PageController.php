@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 
+use App\RentalModel as Rental;
+
 class PageController extends Controller
 {
     /**
@@ -29,11 +31,20 @@ class PageController extends Controller
 
     public function index()
     {
-        return view('welcome');
+        $rental = new Rental();
+        $data = $rental->db_get_rentals("page");
+        return view('welcome')->withdata($data);
     }
 
     public function view_new_car()
     {
         return view('new_car');
     }
+
+    public function rental()
+    {
+        $rental = new Rental();
+        $data = $rental->db_get_rentals("get");
+        return view('rental')->withdata($data);
+    }    
 }

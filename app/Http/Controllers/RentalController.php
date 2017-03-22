@@ -6,7 +6,7 @@ use App\Http\Requests;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 
-use App\carRental as Rental;
+use App\RentalModel as Rental;
 
 use Auth;
 use Validator;
@@ -46,14 +46,14 @@ class RentalController extends Controller
         // Build the validation rules.
         $rules = array(
             'title' => 'required|string|max:50|min:10',
-            'desc' => 'string|max:255',
+            'desc' => 'required|string|max:255',
             'make' => 'required|string|max:20|min:1',
             'model' => 'required|string|max:30|min:1',
-            'type' => 'required|string|max:20|min:1',
-            'fuel' => 'required|string|max:10|min:1',
-            'transmission' => 'required|string|max:1',
-            'doors' => 'required|string|max:2|min:1',
-            'engine' => 'required|max:9|min:0',
+            'type' => 'string|max:20|min:1',
+            'fuel' => 'string|max:10|min:1',
+            'transmission' => 'string|max:1',
+            'doors' => 'string|max:2|min:1',
+            'engine' => 'max:9|min:0',
             'mpg' => 'integer|max:100|min:0',
         );
 

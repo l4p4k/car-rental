@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default">
-                <div class="panel-heading">Add a new car to rent</div>
+                <div class="panel-heading">Add a new car to request</div>
 
                 <div class="panel-body">
                     <form class="form-horizontal" role="form" method="POST" action="{{route('rental.form') }}">
@@ -25,7 +25,7 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('desc') ? ' has-error' : '' }}">
-                            <label class="col-md-4 control-label">Description</label>
+                            <label class="col-md-4 control-label">*Description</label>
 
                             <div class="col-md-6">
                                 <textarea class="form-control" name="desc" value="{{ old('desc') }}" cols="40" rows="3"  maxlength="255"></textarea>
@@ -43,13 +43,13 @@
                             <div class="col-md-6">
                                 <select class="form-control" name="make">
                                     <option value="">--- Choose a car make ---</option>
-                                    <option value="Aston" @if(old('make')=="Aston Martin")selected="selected"@endif>Aston Martin</option>
+                                    <option value="Aston Martin" @if(old('make')=="Aston Martin")selected="selected"@endif>Aston Martin</option>
                                     <option value="Bentley" @if(old('make')=="Bentley")selected="selected"@endif>Bentley</option>
                                     <option value="Jaguar" @if(old('make')=="Jaguar")selected="selected"@endif>Jaguar</option>
-                                    <option value="LRover" @if(old('make')=="LRover")selected="selected"@endif>Land Rover</option>
+                                    <option value="Land Rover" @if(old('make')=="Land Rover")selected="selected"@endif>Land Rover</option>
                                     <option value="McLaren" @if(old('make')=="McLaren")selected="selected"@endif>McLaren</option>   
                                     <option value="Mini" @if(old('make')=="Mini")selected="selected"@endif>Mini</option>
-                                    <option value="Rolls" @if(old('make')=="Rolls Royce")selected="selected"@endif>Rolls Royce</option>
+                                    <option value="Rolls Royce" @if(old('make')=="Rolls Royce")selected="selected"@endif>Rolls Royce</option>
                                     <option value="Chevrolet" @if(old('make')=="Chevrolet")selected="selected"@endif>Chevrolet</option>
                                     <option value="Cadillac" @if(old('make')=="Cadillac")selected="selected"@endif>Cadillac</option>
                                     <option value="Chrystler" @if(old('make')=="Chrystler")selected="selected"@endif>Chrystler</option>
@@ -81,18 +81,18 @@
                         </div>        
 
                         <div class="form-group{{ $errors->has('type') ? ' has-error' : '' }}">
-                            <label class="col-md-4 control-label">*Car type</label>
+                            <label class="col-md-4 control-label">Car type</label>
 
                             <div class="col-md-6">
                                 <select class="form-control" name="type">
                                     <option value="">--- Choose a car type ---</option>
                                     <option value="Small" @if(old('type')=="Small")selected="selected"@endif>Small</option>
                                     <option value="Hatchback" @if(old('type')=="Hatchback")selected="selected"@endif>Hatchback</option>
-                                    <option value="Long" @if(old('type')=="Long")selected="selected"@endif>Saloon/Sedan</option>
+                                    <option value="Long" @if(old('type')=="Saloon/Sedan")selected="selected"@endif>Saloon/Sedan</option>
                                     <option value="Estate" @if(old('type')=="Estate")selected="selected"@endif>Estate</option>  
-                                    <option value="Race" @if(old('type')=="Race")selected="selected"@endif>Race/Sports</option>
+                                    <option value="Race" @if(old('type')=="Race/Sports")selected="selected"@endif>Race/Sports</option>
                                     <option value="Convertible" @if(old('type')=="Convertible")selected="selected"@endif>Convertible</option>
-                                    <option value="Big" @if(old('type')=="Big")selected="selected"@endif>4x4/SUV</option>
+                                    <option value="Big" @if(old('type')=="4x4/SUV")selected="selected"@endif>4x4/SUV</option>
                                     <option value="MVP" @if(old('type')=="MVP")selected="selected"@endif>MPV</option>  
                                     <option value="Other" @if(old('type')=="Other")selected="selected"@endif>Other</option>
                                 </select>
@@ -105,7 +105,7 @@
                         </div> 
 
                         <div class="form-group{{ $errors->has('fuel') ? ' has-error' : '' }}">
-                            <label class="col-md-4 control-label">*Fuel type</label>
+                            <label class="col-md-4 control-label">Fuel type</label>
 
                             <div class="col-md-6">
                                 <select class="form-control" name="fuel">
@@ -116,7 +116,7 @@
                                     <option value="Biofuel" @if(old('fuel')=="Biofuel")selected="selected"@endif>Biofuel</option>
                                     <option value="Hybrid" @if(old('fuel')=="Hybrid")selected="selected"@endif>Hybrid</option>
                                     <option value="Electric" @if(old('fuel')=="Electric")selected="selected"@endif>Electric</option>
-                                    <option value="0" @if(old('fuel')=="0")selected="selected"@endif>Other</option>
+                                    <option value="Other" @if(old('fuel')=="Other")selected="selected"@endif>Other</option>
                                 </select>
                                 @if ($errors->has('fuel'))
                                     <span class="help-block">
@@ -127,7 +127,7 @@
                         </div>  
 
                         <div class="form-group{{ $errors->has('transmission') ? ' has-error' : '' }}">
-                            <label class="col-md-4 control-label">*Transmission type</label>
+                            <label class="col-md-4 control-label">Transmission type</label>
 
                             <div class="col-md-6">
                                 <select class="form-control" name="transmission">
@@ -145,7 +145,7 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('doors') ? ' has-error' : '' }}">
-                            <label class="col-md-4 control-label">*Number of doors</label>
+                            <label class="col-md-4 control-label">Number of doors</label>
 
                             <div class="col-md-6">
                                 <select class="form-control" name="doors" value="{{ old('doors') }}">
@@ -164,7 +164,7 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('engine') ? ' has-error' : '' }}">
-                            <label class="col-md-4 control-label">*Engine Capacity</label>
+                            <label class="col-md-4 control-label">Engine Capacity</label>
 
                             <div class="col-md-6">
                                 <select class="form-control" name="engine" value="{{ old('engine') }}">

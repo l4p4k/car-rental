@@ -36,6 +36,11 @@
     Route::post('/add_car', [
         'uses' => 'RentalController@db_add_rental',
         'as' => 'rental.form'
-    ]);
+    ]); 
 
+    Route::get('/rental/{id}', [
+        'uses' => 'PageController@rental',
+        'as' => 'message.p1',
+        function ($id = '1') {
+    }]);
 // });

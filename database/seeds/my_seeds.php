@@ -24,5 +24,42 @@ class my_seeds extends Seeder
             'password'         => bcrypt('poop123'),
             'role'            => "user"
         ]);
+
+        DB::table('rental')->insert([
+            'rental_id'        => "",
+            'user_id'          => "1",
+            'title'            => "Wanting Jaguar",
+            'description'      => "filler",
+            'make'             => "Jaguar",
+            'model'            => "Kat"
+        ]);
+
+        DB::table('rental')->insert([
+            'rental_id'        => "",
+            'user_id'          => "1",
+            'title'            => "P1 cleaner than your church shoes",
+            'description'      => "I'm just tryna put you in the worst mood",
+            'make'             => "Mclaren",
+            'model'            => "P1"
+        ]);
+
+        DB::table('rental')->insert([
+            'rental_id'        => "",
+            'user_id'          => "1",
+            'title'            => "I'm a baws bruh",
+            'description'      => "this stuff is clever af",
+            'make'             => "Jeep",
+            'model'            => "Poopus"
+        ]);
+
+        DB::table('rental')->insert([
+            'rental_id'        => "",
+            'user_id'          => "1",
+            'title'            => "I want a gud car",
+            'description'      => "pls gimmi",
+            'make'             => "Mini",
+            'model'            => "Cooper S"
+        ]);
+
     }
 }
