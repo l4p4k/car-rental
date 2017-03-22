@@ -39,6 +39,8 @@ class RentalController extends Controller
             'fuel' => $request->input('fuel'),
             'transmission' => $request->input('transmission'),
             'doors' => $request->input('doors'),
+            'engine' => $request->input('engine'),
+            'mpg' => $request->input('mpg'),
         );
 
         // Build the validation rules.
@@ -51,6 +53,8 @@ class RentalController extends Controller
             'fuel' => 'required|string|max:10|min:1',
             'transmission' => 'required|string|max:1',
             'doors' => 'required|string|max:2|min:1',
+            'engine' => 'required|max:9|min:0',
+            'mpg' => 'integer|max:100|min:0',
         );
 
         // Create a new validator instance.
@@ -64,7 +68,7 @@ class RentalController extends Controller
         // If the data passes validation
         if ($validator->passes()) {
             $car_rental = new Rental();
-            $insert = $car_rental->db_add_rental($user_id, $formData['title'], $formData['desc'], $formData['make'],$formData['model'], $formData['type'], $formData['fuel'], $formData['transmission'], $formData['doors']);
+            $insert = $car_rental->db_add_rental($user_id, $formData['title'], $formData['desc'], $formData['make'],$formData['model'], $formData['type'], $formData['fuel'], $formData['transmission'], $formData['doors'], $formData['engine'], $formData['mpg']);
             return redirect()->route('profile');
         }
     }
