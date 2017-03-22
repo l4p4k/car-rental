@@ -48,6 +48,14 @@ class RentalModel extends Model
                 ->get();
             return $query;
         }
+    }
 
+    public function db_get_rental_by_id($id){
+        $query = DB::table('users')
+            ->join('rental', 'users.id', '=', 'rental.user_id')
+            ->select('users.id', 'users.fname', 'users.sname','users.email', 'rental.*')
+            ->where('rental.rental_id', '=', $id)
+            ->first();
+        return $query;
     }
 }

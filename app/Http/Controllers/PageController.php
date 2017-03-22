@@ -41,10 +41,10 @@ class PageController extends Controller
         return view('new_car');
     }
 
-    public function rental()
+    public function rental($id)
     {
         $rental = new Rental();
-        $data = $rental->db_get_rentals("get");
+        $data = $rental->db_get_rental_by_id($id);
         return view('rental')->withdata($data);
     }    
 }

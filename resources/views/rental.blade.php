@@ -4,17 +4,17 @@
 <div class="container">
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
+            @if($data!=NULL)
             <div class="panel panel-default">
-                <div class="panel-heading">Dashboard</div>
+                <div class="panel-heading">{{$data->title}}</div>
 
                 <div class="panel-body">
-                    You are logged in!<br>
-                    First Name: {{Auth::user()->fname}}<br>
-                    Second Name: {{Auth::user()->sname}}<br>
-                    Email: {{Auth::user()->email}}<br>
-                    Phone No: {{Auth::user()->phone}}<br>
+                    {{$data->description}}<br>
+                    {{$data->make}}<br>
+                    {{$data->model}}<br>
                 </div>
             </div>
+            @endif
         </div>
     </div>
 </div>
