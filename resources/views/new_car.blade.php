@@ -204,7 +204,7 @@
                             </div>
                         </div>   
 
-                        <p>* Required</p>
+                        <label class="col-md-4 control-label">*Required fields</label>
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">

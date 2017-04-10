@@ -61,15 +61,23 @@ class RentalController extends Controller
         $validator = Validator::make($formData, $rules);
 
         // If data is not valid
-        if ($validator->fails()) {
+        if ($validator->fails()) 
+        {
             return Redirect::to(URL::previous())->withErrors($validator)->withInput();
         }         
 
         // If the data passes validation
-        if ($validator->passes()) {
+        if ($validator->passes()) 
+        {
             $car_rental = new Rental();
             $insert = $car_rental->db_add_rental($user_id, $formData['title'], $formData['desc'], $formData['make'],$formData['model'], $formData['type'], $formData['fuel'], $formData['transmission'], $formData['doors'], $formData['engine'], $formData['mpg']);
             return redirect()->route('profile');
         }
     }
+
+    public function db_add_message(Request $request)
+    {
+        echo $request;
+        return;
+    }    
 }

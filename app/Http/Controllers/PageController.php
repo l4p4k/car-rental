@@ -44,7 +44,10 @@ class PageController extends Controller
     public function rental($id)
     {
         $rental = new Rental();
-        $data = $rental->db_get_rental_by_id($id);
-        return view('rental')->withdata($data);
+        $rental_data = $rental->db_get_rental_by_id($id);
+        $message_data = $rental->db_get_msgs_for_rental($id);
+        return view('rental')
+        ->with('rental_data', $rental_data)
+        ->with('message_data', $message_data);
     }    
 }

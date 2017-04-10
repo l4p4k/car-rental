@@ -43,4 +43,9 @@
         'as' => 'message.p1',
         function ($id = '1') {
     }]);
+
+    Route::post('/new_message', [
+        'uses' => 'RentalController@db_add_message',
+        'as' => 'message.form'
+    ]); 
 // });
