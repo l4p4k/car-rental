@@ -58,15 +58,15 @@
                 <div class="panel-body">
                 @if($message_data!=NULL)
                     @foreach($message_data as $message)
-                            <p>{{$message->message_txt}}</p>
-                            <p>Posted by<b>
-                                @if($message->user_id == Auth::user()->id)
-                                    {{$message->email}}
-                                @else
-                                    You
-                                @endif</b></p>
-                                <p>{{$message->message_date}}</p>
-                            <hr>
+                        <p>{{$message->message_txt}}</p>
+                        <p>Posted by<b>
+                            @if($message->user_id == Auth::user()->id)
+                                {{$message->email}}
+                            @else
+                                You
+                            @endif</b></p>
+                            <p>{{$message->message_date}}</p>
+                        <hr>
                     @endforeach        
                 @else
                     <p>No messages<p>

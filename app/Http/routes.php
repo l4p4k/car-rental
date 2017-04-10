@@ -48,4 +48,9 @@
         'uses' => 'RentalController@db_add_message',
         'as' => 'message.form'
     ]); 
+
+    Route::get('/messages', [
+        'uses' => 'PageController@messages',
+        'as' => 'message.page'
+    ]);    
 // });

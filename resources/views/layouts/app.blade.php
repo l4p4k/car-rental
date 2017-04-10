@@ -49,7 +49,7 @@
                 <ul class="nav navbar-nav">
                     <li><a href="{{ url('/profile') }}">Profile</a></li>
                     <li><a href="{{ url('/new_rental') }}">Add a Car</a></li>
-                    <li><a href="{{ url('#') }}">Request Car</a></li>
+                    <li><a href="{{ url('/messages') }}">Messages</a></li>
                 </ul>
 
                 <!-- Right Side Of Navbar -->
