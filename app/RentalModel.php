@@ -86,7 +86,7 @@ class RentalModel extends Model
     public function db_get_msgs_for_rental($rental_id)
     {
         $query = DB::table('message')
-            ->select('message.*', 'users.fname','users.sname','users.email', 'rental.*')
+            ->select('message.*','message.created_at as message_date', 'users.fname','users.sname','users.email', 'rental.*')
             ->join('rental', 'rental.rental_id', '=', 'message.rental_id')
             ->join('users', 'users.id', '=', 'rental.user_id')
             ->orderBy('message.message_id', 'DESC')

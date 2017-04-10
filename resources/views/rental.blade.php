@@ -57,26 +57,17 @@
 
                 <div class="panel-body">
                 @if($message_data!=NULL)
-                    <table class="table" style="width:100%">
-                        <thead>
-                            <tr>
-                            <th>Message</th> 
-                            <th class="text-right">Posted by</th>
-                            </tr>
-                        </thead> 
-                        <tbody>
-                            @foreach($message_data as $message)
-                                <tr> 
-                                    <td>{{$message->message_txt}}</td>
-                                    <td class="text-right">
-                                        <a href="#">
-                                            {{$message->email}}
-                                        </a>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>                    
+                    @foreach($message_data as $message)
+                            <p>{{$message->message_txt}}</p>
+                            <p>Posted by<b>
+                                @if($message->user_id == Auth::user()->id)
+                                    {{$message->email}}
+                                @else
+                                    You
+                                @endif</b></p>
+                                <p>{{$message->message_date}}</p>
+                            <hr>
+                    @endforeach        
                 @else
                     <p>No messages<p>
                 @endif
