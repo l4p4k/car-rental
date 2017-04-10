@@ -14,7 +14,7 @@
                     {{$rental_data->model}}<br>
                 </div>
             </div>
-
+            @if($rental_data->user_id != Auth::user()->user_id)
             <div class="panel panel-default">
                 <div class="panel-heading">Add a message</div>
 
@@ -82,6 +82,9 @@
                 @endif
                 </div>
             </div>
+            <!-- end of user id match to rental owner check -->
+            @endif
+            <!-- end of rental data check -->
             @endif
         </div>
     </div>
