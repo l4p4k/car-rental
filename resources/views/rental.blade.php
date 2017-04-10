@@ -14,6 +14,15 @@
                     {{$data->model}}<br>
                 </div>
             </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">Comments</div>
+
+                <div class="panel-body">
+                    <br>
+                </div>
+            </div>
+
             @endif
         </div>
     </div>
