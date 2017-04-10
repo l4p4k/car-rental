@@ -60,7 +60,7 @@
                     @foreach($message_data as $message)
                         <p>{{$message->message_txt}}</p>
                         <p>Posted by<b>
-                            @if($message->user_id == Auth::user()->id)
+                            @if($message->messager_id != Auth::user()->id)
                                 {{$message->email}}
                             @else
                                 You

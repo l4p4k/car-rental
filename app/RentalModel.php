@@ -67,6 +67,7 @@ class RentalModel extends Model
         $query = DB::table('rental')
             ->join('users', 'rental.user_id', '=', 'users.id')
             ->select('users.id', 'users.fname', 'users.sname','users.email', 'rental.*')
+            ->where('users.id', '=', $user_id)
             ->get();
         return $query;
     }    
@@ -95,9 +96,9 @@ class RentalModel extends Model
     public function db_get_msgs_for_rental($rental_id)
     {
         $query = DB::table('message')
-            ->select('message.*','message.created_at as message_date', 'users.fname','users.sname','users.email', 'rental.rental_id', 'rental.user_id', 'rental.title')
+            ->select('message.*', 'message.user_id as messager_id','message.created_at as message_date', 'users.fname','users.sname','users.email', 'rental.rental_id', 'rental.user_id as poster_id', 'rental.title')
             ->join('rental', 'rental.rental_id', '=', 'message.rental_id')
-            ->join('users', 'users.id', '=', 'rental.user_id')
+            ->join('users', 'users.id', '=', 'message.user_id')
             ->orderBy('message.message_id', 'DESC')
             ->where('message.rental_id', '=', $rental_id)
             ->get();
@@ -107,6 +108,8 @@ class RentalModel extends Model
     public function db_get_msgs_for_user($user_id)
     {
         $rentals = $this->db_get_rentals_by_user($user_id);
+        if($rentals != null)
+        {
         foreach ($rentals as $key => $value) {
             $check = $this->db_get_msgs_for_rental($value->rental_id);
             if($check != null)
@@ -115,7 +118,12 @@ class RentalModel extends Model
             }
         }
 
-        return $query;
+        return $query;            
+    }else
+    {
+        return null;
+    }
+
     }       
 
     public function db_last_msg_for_rental($rental_id)

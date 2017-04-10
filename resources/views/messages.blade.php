@@ -22,7 +22,7 @@
                         <h3>{{$message->title}}</h3>
                             <p>{{$message->message_txt}}</p>
                             <p>Posted by<b>
-                                @if($message->user_id == Auth::user()->id)
+                                @if($message->poster_id == Auth::user()->id)
                                     {{$message->email}}
                                 @else
                                     You
