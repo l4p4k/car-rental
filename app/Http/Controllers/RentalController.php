@@ -71,13 +71,39 @@ class RentalController extends Controller
         {
             $car_rental = new Rental();
             $insert = $car_rental->db_add_rental($user_id, $formData['title'], $formData['desc'], $formData['make'],$formData['model'], $formData['type'], $formData['fuel'], $formData['transmission'], $formData['doors'], $formData['engine'], $formData['mpg']);
-            return redirect()->route('profile');
+            return redirect()->route('home');
         }
     }
 
     public function db_add_message(Request $request)
     {
-        echo $request;
-        return;
+        //get authorised user's ID
+        $user_id = Auth::user()->id;
+
+        $formData = array(
+            'message_txt' => $request->input('message_txt'),
+            'rental_id' => $request->input('rental_id'),
+        );
+
+        $rules = array(
+            'message_txt' => 'required|string|max:255',
+        );
+
+        // Create a new validator instance.
+        $validator = Validator::make($formData, $rules);
+
+        // If data is not valid
+        if ($validator->fails()) 
+        {
+            return Redirect::to(URL::previous())->withErrors($validator)->withInput();
+        }         
+
+        // If the data passes validation
+        if ($validator->passes()) 
+        {
+            $car_rental = new Rental();
+            $insert = $car_rental->db_add_msg($user_id, $formData['rental_id'], $formData['message_txt']);
+            return Redirect::to(URL::previous());
+        }
     }    
 }

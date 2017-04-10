@@ -37,7 +37,7 @@
                         </div>
 
                         <input type="hidden" name="rental_id" value="{{$rental_data->rental_id}}">
-                        <input type="hidden" name="user_id" value="{{$rental_data->user_id}}">
+                        <input type="hidden" name="owner_id" value="{{$rental_data->user_id}}">
 
                         <label class="col-md-4 control-label">*Required fields</label>
 
@@ -53,11 +53,30 @@
             </div>
 
             <div class="panel panel-default">
-                <div class="panel-heading">Private Messages between you and {{$rental_data->user_id}}</div>
+                <div class="panel-heading">Private Messages between you and {{$rental_data->email}}</div>
 
                 <div class="panel-body">
                 @if($message_data!=NULL)
-                    A message is here
+                    <table class="table" style="width:100%">
+                        <thead>
+                            <tr>
+                            <th>Message</th> 
+                            <th class="text-right">Posted by</th>
+                            </tr>
+                        </thead> 
+                        <tbody>
+                            @foreach($message_data as $message)
+                                <tr> 
+                                    <td>{{$message->message_txt}}</td>
+                                    <td class="text-right">
+                                        <a href="#">
+                                            {{$message->email}}
+                                        </a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>                    
                 @else
                     <p>No messages<p>
                 @endif
