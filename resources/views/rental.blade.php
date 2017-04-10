@@ -14,7 +14,7 @@
                     {{$rental_data->model}}<br>
                 </div>
             </div>
-            @if($rental_data->user_id != Auth::user()->user_id)
+            @if($rental_data->user_id != Auth::user()->id)
             <div class="panel panel-default">
                 <div class="panel-heading">Add a message</div>
 
