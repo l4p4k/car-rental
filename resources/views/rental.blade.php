@@ -58,28 +58,28 @@
                 @if($message_data!=NULL)
                     @foreach($message_data as $message)
                         @if((!Auth::guest()) && (($message->messager_id == Auth::user()->id) || ($message->messager_id == $message->poster_id)))
-                            <blockquote><p>{{$message->message_txt}}<p></blockquote>
+                            <blockquote><p>{{$message->message_txt}}<p>
                         @else
                             {{$message->message_txt}}
                         @endif
-                        <p>Posted by<b>
+                        <footer><p>Posted by<b>
                             @if(!Auth::guest())
                                 @if($message->messager_id != Auth::user()->id)
                                     @if($message->messager_id == $message->poster_id)
-                                        Owner
+                                        Owner</blockquote>
                                     @else
                                         {{$message->email}}
                                     @endif
                                 @else
-                                    You
+                                    You</blockquote>
                                 @endif
                             @else
                                 @if($message->messager_id != $message->poster_id)
                                     {{$message->email}}
                                 @else
-                                    Owner
+                                    Owner</blockquote>
                                 @endif
-                            @endif</b></p>
+                            @endif</b></p></footer>
                             <p>{{$message->message_date}}</p>
                         <hr>
                     @endforeach        
