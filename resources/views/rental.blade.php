@@ -51,7 +51,7 @@
 
                 <div class="panel-body">
 
-                    <form class="form-horizontal" role="form" method="POST" action="{{ route('message.form') }}">
+                    <form class="form-horizontal" role="form" method="POST" action="{{ route('message.form') }}" enctype="multipart/form-data">
                         {!! csrf_field() !!}
 
                         <div class="form-group{{ $errors->has('message_txt') ? ' has-error' : '' }}">
@@ -66,6 +66,20 @@
                                 @endif                                
                             </div>
                         </div>
+
+                        <div class="form-group{{ $errors->has('file') ? ' has-error' : '' }}">
+                            <label class="col-md-4 control-label">*File Upload</label>(max size: 2MB)
+
+                            <div class="col-md-6">
+                                <input type="file" class="form-control" name="file" value="{{ old('file') }}">
+
+                                @if ($errors->has('file'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('file') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>                        
 
                         <input type="hidden" name="rental_id" value="{{$rental_data->rental_id}}">
                         <input type="hidden" name="owner_id" value="{{$rental_data->user_id}}">
@@ -125,7 +139,7 @@
                     <p>No messages<p>
                 @endif
 
-                
+
                 {{ $message_data->appends(Request::except('page'))->render() }}
                 </div>
             </div>            

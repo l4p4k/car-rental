@@ -82,7 +82,7 @@ class RentalController extends Controller
                 //check if image is valid
                 if (Input::file('img')->isValid()) 
                 {
-                    //get new item id
+                    //get new rental id
                     $new_rental_id = DB::table('rental')->orderBy('rental_id', 'desc')->first()->rental_id + 1;
 
                     $image_destination = "uploads";
@@ -94,8 +94,6 @@ class RentalController extends Controller
                     $rental_image = "1";
                 }else
                 {
-                    // sending back with error message.
-                    // Session::flash('error', 'uploaded file is not valid');
                     $imageValudation = array(
                         'img' => "uploaded file is not valid",
                     );
@@ -117,10 +115,12 @@ class RentalController extends Controller
         $formData = array(
             'message_txt' => $request->input('message_txt'),
             'rental_id' => $request->input('rental_id'),
+            'file' => Input::file('file')
         );
 
         $rules = array(
             'message_txt' => 'required|string|max:255',
+            'file' => 'required|mimes:jpeg,bmp,png,mp3,mp4,avi|max:100000',
         );
 
         // Create a new validator instance.
@@ -135,6 +135,41 @@ class RentalController extends Controller
         // If the data passes validation
         if ($validator->passes()) 
         {
+            //if file was uploaded
+            if (Input::hasFile('file'))
+            {
+                //check if file is valid
+                if (Input::file('file')->isValid()) 
+                {
+                    //get new rental id
+                    $new_msg_id = DB::table('message')->where('rental_id', "=", $formData['rental_id'])->orderBy('rental_msg_id', 'desc')->first();
+                    if($new_msg_id!=null)
+                    {
+                        $new_msg_id = $new_msg_id->rental_msg_id + 1;
+                    }else
+                    {
+                        $new_msg_id = 1;
+                    }
+
+                    $file = Input::file('file');
+                    $file_destination = "uploads";
+                    $file_extension = $file->getClientOriginalExtension();
+
+                    $file_new_name = $formData['rental_id'].".".$new_msg_id.".".$file_extension;
+                    $file->move($file_destination, $file_new_name);
+                    //file has been uploaded
+                    $message_file = "1";
+                }else
+                {
+                    // sending back with error message.
+                    // Session::flash('error', 'uploaded file is not valid');
+                    $imageValudation = array(
+                        'file' => "uploaded file is not valid",
+                    );
+                    return Redirect::to(URL::previous())->withErrors($imageValudation)->withInput();
+                }
+            }
+
             $car_rental = new Rental();
             $insert = $car_rental->db_add_msg($user_id, $formData['rental_id'], $formData['message_txt']);
             return Redirect::to(URL::previous());
