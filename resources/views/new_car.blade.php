@@ -8,7 +8,7 @@
                 <div class="panel-heading">Add a new car to rent</div>
 
                 <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{route('rental.form') }}">
+                    <form class="form-horizontal" role="form" method="POST" action="{{route('rental.form') }}"  enctype="multipart/form-data">
                         {!! csrf_field() !!}
 
                         <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
@@ -36,6 +36,20 @@
                                 @endif                                
                             </div>
                         </div>    
+
+                        <div class="form-group{{ $errors->has('img') ? ' has-error' : '' }}">
+                            <label class="col-md-4 control-label">*Image Upload</label>(max size: 2MB)
+
+                            <div class="col-md-6">
+                                <input type="file" class="form-control" name="img" value="{{ old('img') }}">
+
+                                @if ($errors->has('img'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('img') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
 
                         <div class="form-group{{ $errors->has('make') ? ' has-error' : '' }}">
                             <label class="col-md-4 control-label">*Car make</label>

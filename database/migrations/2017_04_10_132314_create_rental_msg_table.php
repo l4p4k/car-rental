@@ -18,6 +18,7 @@ class CreateRentalMsgTable extends Migration
             $table->integer('rental_id');
             $table->integer('user_id');
             $table->string('message_txt', 255);
+            $table->string('message_img', 1);
             $table->timestamps();
         });
     }

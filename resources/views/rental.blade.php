@@ -11,6 +11,11 @@
                 <div class="panel-body">
                     <h1>{{$rental_data->title}}</h1>
                     <p>{{$rental_data->description}}</p>
+                    @if($rental_data->img)
+                        <img src="/uploads/{{$rental_data->rental_id}}.png" alt="Image" width="50%" height="50%">
+                    @else
+                        <img src="/site_images/no image.png" alt="no image">
+                    @endif
                     <p>Posted by<b> {{$rental_data->email}} ({{$rental_data->fname}} {{$rental_data->sname}})</b></p><hr>
 
                     <p><b>Make:</b> {{$rental_data->make}}<p>

@@ -24,13 +24,13 @@ class RentalModel extends Model
         return $time_now;
     }
 
-    public function db_add_rental($user_id, $title, $desc, $make, $model, $type, $fuel, $transmission, $doors, $engine, $mpg)
+    public function db_add_rental($rental_id, $user_id, $title, $desc, $make, $model, $type, $fuel, $transmission, $doors, $engine, $mpg, $rental_image)
     {
         $time_now = $this->getTime();
 
         $query = DB::table('rental')->insert([
-            ['rental_id' => "", 'user_id' => $user_id, 'title' => $title, 'description' => $desc, 'make' => $make, 'model' => $model,  'type' => $type,
-            'fuel' => $fuel, 'transmission' => $transmission,  'doors' => $doors, 'engine_cc' => $engine, 'mpg' => $mpg, 
+            ['rental_id' => $rental_id, 'user_id' => $user_id, 'title' => $title, 'description' => $desc, 'make' => $make, 'model' => $model,  'type' => $type,
+            'fuel' => $fuel, 'transmission' => $transmission,  'doors' => $doors, 'engine_cc' => $engine, 'mpg' => $mpg, 'img' => $rental_image,
             'created_at' => $time_now, 'updated_at' => ""]
         ]);
 
