@@ -6,14 +6,37 @@
         <div class="col-md-10 col-md-offset-1">
             @if($rental_data!=NULL)
             <div class="panel panel-default">
-                <div class="panel-heading">{{$rental_data->title}}</div>
+                <div class="panel-heading">Car information</div>
 
                 <div class="panel-body">
-                    {{$rental_data->description}}<br>
-                    {{$rental_data->make}}<br>
-                    {{$rental_data->model}}<br>
+                    <h1>{{$rental_data->title}}</h1>
+                    <p>{{$rental_data->description}}</p>
+                    <p>Posted by<b> {{$rental_data->email}}</b></p><hr>
+
+                    <p><b>Make:</b> {{$rental_data->make}}<p>
+                    <p><b>Model:</b> {{$rental_data->model}}<p>
+                    @if($rental_data->type!=null)
+                        <p><b>Type:</b> {{$rental_data->model}}<p>
+                    @endif
+                    @if($rental_data->fuel!=null)
+                        <p><b>Fuel:</b> {{$rental_data->fuel}}<p>
+                    @endif
+                    @if($rental_data->transmission!=null)
+                        <p><b>Transmission:</b> {{$rental_data->transmission}}<p>
+                    @endif
+                    @if($rental_data->doors!=null)
+                        <p><b>Doors:</b> {{$rental_data->doors}}<p>
+                    @endif
+                    @if($rental_data->engine_cc!=null)
+                        <p><b>Engine_cc:</b> {{$rental_data->engine_cc}}<p>
+                    @endif
+                    @if($rental_data->mpg!=null)
+                        <p><b>MPG:</b> {{$rental_data->mpg}}<p>
+                    @endif
                 </div>
             </div>
+
+            @if(!Auth::guest())
             <div class="panel panel-default">
                 <div class="panel-heading">Add a message</div>
 
@@ -50,6 +73,7 @@
                     </form>
                 </div>
             </div>
+            @endif
 
             <div class="panel panel-default">
                 <div class="panel-heading">Messages on this post</div>
@@ -57,8 +81,10 @@
                 <div class="panel-body">
                 @if($message_data!=NULL)
                     @foreach($message_data as $message)
-                        @if((!Auth::guest()) && (($message->messager_id == Auth::user()->id) || ($message->messager_id == $message->poster_id)))
-                            <blockquote><p>{{$message->message_txt}}<p>
+                        @if((!Auth::guest()) && (($message->messager_id == Auth::user()->id)))
+                            <blockquote><p class="bg-warning">{{$message->message_txt}}<p>
+                        @elseif($message->messager_id == $message->poster_id)
+                            <blockquote><p class="bg-primary">{{$message->message_txt}}<p>
                         @else
                             {{$message->message_txt}}
                         @endif
@@ -66,20 +92,20 @@
                             @if(!Auth::guest())
                                 @if($message->messager_id != Auth::user()->id)
                                     @if($message->messager_id == $message->poster_id)
-                                        Owner</blockquote>
+                                        Owner
                                     @else
                                         {{$message->email}}
                                     @endif
                                 @else
-                                    You</blockquote>
+                                    You
                                 @endif
                             @else
                                 @if($message->messager_id != $message->poster_id)
                                     {{$message->email}}
                                 @else
-                                    Owner</blockquote>
+                                    Owner
                                 @endif
-                            @endif</b></p></footer>
+                            @endif</b></p></footer></blockquote>
                             <p>{{$message->message_date}}</p>
                         <hr>
                     @endforeach        
