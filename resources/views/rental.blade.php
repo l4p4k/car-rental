@@ -11,7 +11,7 @@
                 <div class="panel-body">
                     <h1>{{$rental_data->title}}</h1>
                     <p>{{$rental_data->description}}</p>
-                    <p>Posted by<b> {{$rental_data->email}}</b></p><hr>
+                    <p>Posted by<b> {{$rental_data->email}} ({{$rental_data->fname}} {{$rental_data->sname}})</b></p><hr>
 
                     <p><b>Make:</b> {{$rental_data->make}}<p>
                     <p><b>Model:</b> {{$rental_data->model}}<p>
