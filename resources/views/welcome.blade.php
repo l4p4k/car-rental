@@ -11,9 +11,9 @@
                     @if($rental_data!=null)
                         @foreach($rental_data as $rental)
                         <table class="table table-hover"><tbody><tr><td>                     
-                            <h3><a href="/rental/{{$rental->rental_id}}">
+                            <a href="/rental/{{$rental->rental_id}}" style="text-decoration:none"><h3>
                                 {{$rental->title}}
-                            </a></h3>
+                            </h3>
                             <div>
                             @if($rental->img)
                                 <img src="/uploads/{{$rental->rental_id}}.png" class="img-responsive" width="50%" alt="Image">
@@ -22,8 +22,7 @@
                             @endif   
                             </div>
                             <p>{{$rental->make}} {{$rental->model}}</p>
-                            <a href="#" class="text-right">
-                                {{$rental->email}}
+                            <p>{{$rental->email}}<p>
                             </a>
                         </td></tr></tbody></div></table>
                         @endforeach
