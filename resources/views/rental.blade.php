@@ -15,8 +15,12 @@
 
                     <p><b>Make:</b> {{$rental_data->make}}<p>
                     <p><b>Model:</b> {{$rental_data->model}}<p>
+
+                    @if($rental_data->colour!=null)
+                        <p><b>Colour:</b> {{$rental_data->colour}}<p>
+                    @endif
                     @if($rental_data->type!=null)
-                        <p><b>Type:</b> {{$rental_data->model}}<p>
+                        <p><b>Type:</b> {{$rental_data->type}}<p>
                     @endif
                     @if($rental_data->fuel!=null)
                         <p><b>Fuel:</b> {{$rental_data->fuel}}<p>

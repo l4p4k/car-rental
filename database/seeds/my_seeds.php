@@ -40,7 +40,9 @@ class my_seeds extends Seeder
             'title'            => "P1 cleaner than your church shoes",
             'description'      => "I'm just tryna put you in the worst mood",
             'make'             => "Mclaren",
-            'model'            => "P1"
+            'model'            => "P1",
+            'fuel'             => "Hybrid",
+            'mpg'              => "36"
         ]);
 
         DB::table('rental')->insert([
@@ -49,7 +51,14 @@ class my_seeds extends Seeder
             'title'            => "I'm a baws bruh",
             'description'      => "this stuff is clever af",
             'make'             => "Jeep",
-            'model'            => "Poopus"
+            'model'            => "Poopus",
+            'colour'           => "Green",
+            'type'             => "4x4/SUV",
+            'fuel'             => "Petrol",
+            'transmission'     => "1",
+            'doors'            => "5",
+            'engine_cc'        => "2.2",
+            'mpg'              => "30"
         ]);
 
         DB::table('rental')->insert([
@@ -58,7 +67,10 @@ class my_seeds extends Seeder
             'title'            => "I want a gud car",
             'description'      => "pls gimmi",
             'make'             => "Mini",
-            'model'            => "Cooper S"
+            'model'            => "Cooper S",
+            'fuel'             => "Deisel",
+            'engine_cc'        => "1.6",
+            'mpg'              => "40"
         ]);
 
     }

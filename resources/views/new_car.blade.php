@@ -78,7 +78,20 @@
                                     </span>
                                 @endif                                
                             </div>
-                        </div>        
+                        </div>     
+
+                        <div class="form-group{{ $errors->has('colour') ? ' has-error' : '' }}">
+                            <label class="col-md-4 control-label">Car Colour</label>
+
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" name="colour" value="{{ old('colour') }}" maxlength="20">
+                                @if ($errors->has('colour'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('colour') }}</strong>
+                                    </span>
+                                @endif                                
+                            </div>
+                        </div>  
 
                         <div class="form-group{{ $errors->has('type') ? ' has-error' : '' }}">
                             <label class="col-md-4 control-label">Car type</label>
@@ -88,11 +101,11 @@
                                     <option value="">--- Choose a car type ---</option>
                                     <option value="Small" @if(old('type')=="Small")selected="selected"@endif>Small</option>
                                     <option value="Hatchback" @if(old('type')=="Hatchback")selected="selected"@endif>Hatchback</option>
-                                    <option value="Long" @if(old('type')=="Saloon/Sedan")selected="selected"@endif>Saloon/Sedan</option>
+                                    <option value="Saloon/Sedan" @if(old('type')=="Saloon/Sedan")selected="selected"@endif>Saloon/Sedan</option>
                                     <option value="Estate" @if(old('type')=="Estate")selected="selected"@endif>Estate</option>  
-                                    <option value="Race" @if(old('type')=="Race/Sports")selected="selected"@endif>Race/Sports</option>
+                                    <option value="Race/Sports" @if(old('type')=="Race/Sports")selected="selected"@endif>Race/Sports</option>
                                     <option value="Convertible" @if(old('type')=="Convertible")selected="selected"@endif>Convertible</option>
-                                    <option value="Big" @if(old('type')=="4x4/SUV")selected="selected"@endif>4x4/SUV</option>
+                                    <option value="4x4/SUV" @if(old('type')=="4x4/SUV")selected="selected"@endif>4x4/SUV</option>
                                     <option value="MVP" @if(old('type')=="MVP")selected="selected"@endif>MPV</option>  
                                     <option value="Other" @if(old('type')=="Other")selected="selected"@endif>Other</option>
                                 </select>
