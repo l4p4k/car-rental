@@ -19,7 +19,7 @@
 
                 <div class="panel-body">
 
-                    <form class="form-horizontal" role="form" method="POST" action="@if($rental_data->user_id != Auth::user()->id) {{ route('message.form') }} @else {{ route('message.form') }} @endif">
+                    <form class="form-horizontal" role="form" method="POST" action="{{ route('message.form') }}">
                         {!! csrf_field() !!}
 
                         <div class="form-group{{ $errors->has('message_txt') ? ' has-error' : '' }}">
@@ -51,42 +51,34 @@
                 </div>
             </div>
 
-            @if($rental_data->user_id != Auth::user()->id)
-
             <div class="panel panel-default">
-                <div class="panel-heading">Messages between you and {{$rental_data->email}}</div>
+                <div class="panel-heading">Messages on this post</div>
 
                 <div class="panel-body">
                 @if($message_data!=NULL)
                     @foreach($message_data as $message)
-                        <p>{{$message->message_txt}}</p>
+                        @if((!Auth::guest()) && (($message->messager_id == Auth::user()->id) || ($message->messager_id == $message->poster_id)))
+                            <blockquote><p>{{$message->message_txt}}<p></blockquote>
+                        @else
+                            {{$message->message_txt}}
+                        @endif
                         <p>Posted by<b>
-                            @if($message->messager_id != Auth::user()->id)
-                                {{$message->email}}
+                            @if(!Auth::guest())
+                                @if($message->messager_id != Auth::user()->id)
+                                    @if($message->messager_id == $message->poster_id)
+                                        Owner
+                                    @else
+                                        {{$message->email}}
+                                    @endif
+                                @else
+                                    You
+                                @endif
                             @else
-                                You
-                            @endif</b></p>
-                            <p>{{$message->message_date}}</p>
-                        <hr>
-                    @endforeach        
-                @else
-                    <p>No messages<p>
-                @endif
-                </div>
-            </div>
-
-            <div class="panel panel-default">
-                <div class="panel-heading">Messages between you and {{$rental_data->email}}</div>
-
-                <div class="panel-body">
-                @if($message_data!=NULL)
-                    @foreach($message_data as $message)
-                        <p>{{$message->message_txt}}</p>
-                        <p>Posted by<b>
-                            @if($message->messager_id != Auth::user()->id)
-                                {{$message->email}}
-                            @else
-                                You
+                                @if($message->messager_id != $message->poster_id)
+                                    {{$message->email}}
+                                @else
+                                    Owner
+                                @endif
                             @endif</b></p>
                             <p>{{$message->message_date}}</p>
                         <hr>
@@ -97,11 +89,6 @@
                 </div>
             </div>            
 
-            @else
-
-
-            <!-- end of user id match to rental owner check -->
-            @endif
             <!-- end of rental data check -->
             @endif
         </div>

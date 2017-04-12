@@ -21,6 +21,7 @@ class RentalModel extends Model
         //gets unix timestamp
         $date = new DateTime();
         $time_now = $date->format('Y-m-d H:i:s');
+        return $time_now;
     }
 
     public function db_add_rental($user_id, $title, $desc, $make, $model, $type, $fuel, $transmission, $doors, $engine, $mpg)
