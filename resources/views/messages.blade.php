@@ -14,26 +14,18 @@
 
             @if($message_data!=NULL)
                 <div class="panel panel-default">
-                    <div class="panel-heading">Message</div>
+                    <div class="panel-heading">Your messages</div>
 
                     <div class="panel-body">
-                    @foreach($message_data as $data)
-                        @foreach($data as $message)
-                        <h3>{{$message->title}}</h3>
+                        @foreach($message_data as $message)
                             <p>{{$message->message_txt}}</p>
-                            <p>Posted by<b>
-                                @if($message->poster_id == Auth::user()->id)
-                                    {{$message->email}}
-                                @else
-                                    You
-                                @endif</b></p>
-                                <p>{{$message->message_date}}</p>
-                            <hr>                        
+                            <p>{{$message->message_date}}</p>
+                            <a href="/rental/{{$message->rental_id}}">Post: <b>{{$message->title}} </b></a>
+                            <hr>
                         @endforeach
-                    @endforeach
                         </div>
                     </div>
-            <!-- end of rental data check -->
+            <!-- end of message data check -->
             @endif
 
         </div>

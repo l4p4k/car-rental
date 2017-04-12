@@ -112,23 +112,31 @@ class RentalModel extends Model
 
     public function db_get_msgs_for_user($user_id)
     {
-        $rentals = $this->db_get_rentals_by_user($user_id);
-        if($rentals != null)
-        {
-        foreach ($rentals as $key => $value) {
-            $check = $this->db_get_msgs_for_rental($value->rental_id);
-            if($check != null)
-            {
-                $query[$key]=$check;
-            }
-        }
+        // $rentals = $this->db_get_rentals_by_user($user_id);
+        // if($rentals != null)
+        // {
+        //     foreach ($rentals as $key => $value) {
+        //         $check = $this->db_get_msgs_for_rental($value->rental_id);
+        //         if($check != null)
+        //         {
+        //             $query[$key]=$check;
+        //         }
+        //     }
 
-        return $query;            
-    }else
-    {
-        return null;
-    }
+        //     return $query;            
+        // }else
+        // {
+        //     return null;
+        // }
 
+    $allMsgsQuery = DB::table('message')
+        ->select('message.*', 'message.user_id as messager_id','message.created_at as message_date', 'users.fname','users.sname','users.email', 'rental.rental_id', 'rental.user_id as poster_id', 'rental.title')
+        ->join('rental', 'rental.rental_id', '=', 'message.rental_id')
+        ->join('users', 'users.id', '=', 'message.user_id')
+        ->orderBy('message.message_id', 'DESC')
+        ->where('message.user_id', '=', $user_id)
+        ->get();
+    return $allMsgsQuery;
     }       
 
     public function db_last_msg_for_rental($rental_id)
