@@ -12,9 +12,9 @@
                     <h1>{{$rental_data->title}}</h1>
                     <p>{{$rental_data->description}}</p>
                     @if($rental_data->img)
-                        <img src="/uploads/{{$rental_data->rental_id}}.png" alt="Image" width="50%" height="50%">
+                        <img src="/uploads/{{$rental_data->rental_id}}.png" class="img-responsive" alt="Image">
                     @else
-                        <img src="/site_images/no image.png" alt="no image">
+                        <img src="/site_images/no image.png" class="img-responsive" alt="no image">
                     @endif
                     <p>Posted by<b> {{$rental_data->email}} ({{$rental_data->fname}} {{$rental_data->sname}})</b></p><hr>
 
@@ -88,6 +88,9 @@
                 <div class="panel-heading">Messages on this post</div>
 
                 <div class="panel-body">
+                <div class="table-responsive">
+<!--                     <table class="table" style="width:100%">
+                        <tbody><tr><td> -->
                 @if($message_data!=NULL)
                     @foreach($message_data as $message)
                         @if((!Auth::guest()) && (($message->messager_id == Auth::user()->id)))
@@ -121,6 +124,9 @@
                 @else
                     <p>No messages<p>
                 @endif
+
+                
+                {{ $message_data->appends(Request::except('page'))->render() }}
                 </div>
             </div>            
 

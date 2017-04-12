@@ -106,7 +106,7 @@ class RentalModel extends Model
             ->join('users', 'users.id', '=', 'message.user_id')
             ->orderBy('message.message_id', 'DESC')
             ->where('message.rental_id', '=', $rental_id)
-            ->get();
+            ->paginate(3);
         return $query;
     }    
 
