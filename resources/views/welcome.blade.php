@@ -8,39 +8,26 @@
                 <div class="panel-heading">Welcome</div>
 
                 <div class="panel-body">
-                    
-                    @if($data!=null)
-                        <div class="table-responsive">
-                            <table class="table" style="width:100%">
-                                <thead>
-                                    <tr>
-                                    <th>Title</th> 
-                                    <th>Make</th>
-                                    <th>Model</th>
-                                    <th class="text-right">Posted by</th>
-                                    </tr>
-                                </thead> 
-                                <tbody>
-                                    @foreach($data as $rental)
-                                        <tr> 
-                                            <td>
-                                                <a href="/rental/{{$rental->rental_id}}">
-                                                    {{$rental->title}}
-                                                </a>
-                                            </td>
-                                            <td>{{$rental->make}}</td>
-                                            <td>{{$rental->model}}</td>
-                                            <td class="text-right">
-                                                <a href="#">
-                                                    {{$rental->email}}
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        {{ $data->appends(Request::except('page'))->render() }}
-                        </div>
+                    @if($rental_data!=null)
+                        @foreach($rental_data as $rental)
+                        <table class="table table-hover"><tbody><tr><td>                     
+                            <h3><a href="/rental/{{$rental->rental_id}}">
+                                {{$rental->title}}
+                            </a></h3>
+                            <div>
+                            @if($rental->img)
+                                <img src="/uploads/{{$rental->rental_id}}.png" class="img-responsive" width="50%" alt="Image">
+                            @else
+                                <img src="/site_images/no image.png" class="img-responsive img-circle" alt="no image">
+                            @endif   
+                            </div>
+                            <p>{{$rental->make}} {{$rental->model}}</p>
+                            <a href="#" class="text-right">
+                                {{$rental->email}}
+                            </a>
+                        </td></tr></tbody></div></table>
+                        @endforeach
+                        {{ $rental_data->appends(Request::except('page'))->render() }}
                     @endif
 
                 </div>

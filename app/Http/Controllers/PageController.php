@@ -34,9 +34,10 @@ class PageController extends Controller
     public function index()
     {
         $rental = new Rental();
-        $data = $rental->db_get_rentals("page");
+        $rental_data = $rental->db_get_rentals("page");
 
-        return view('welcome')->withdata($data);
+        return view('welcome')
+        ->with('rental_data', $rental_data);
     }
 
     public function view_new_car()
