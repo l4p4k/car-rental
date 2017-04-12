@@ -16,11 +16,16 @@ class RentalModel extends Model
     //
     protected $table = "rental";
 
+    public function getTime()
+    {
+        //gets unix timestamp
+        $date = new DateTime();
+        $time_now = $date->format('Y-m-d H:i:s');
+    }
+
     public function db_add_rental($user_id, $title, $desc, $make, $model, $type, $fuel, $transmission, $doors, $engine, $mpg)
     {
-    	//gets unix timestamp
-		$date = new DateTime();
-		$time_now = $date->format('Y-m-d H:i:s');
+        $time_now = $this->getTime();
 
         $query = DB::table('rental')->insert([
             ['rental_id' => "", 'user_id' => $user_id, 'title' => $title, 'description' => $desc, 'make' => $make, 'model' => $model,  'type' => $type,
@@ -77,8 +82,7 @@ class RentalModel extends Model
     public function db_add_msg($user_id, $rental_id, $message_txt)
     {
         //gets unix timestamp
-        $date = new DateTime();
-        $time_now = $date->format('Y-m-d H:i:s');
+        $time_now = $this->getTime();
         $rental_msg_id = $this->db_last_msg_for_rental($rental_id)+1;
 
         $query = DB::table('message')->insert([

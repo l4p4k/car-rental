@@ -40,7 +40,7 @@
 
     Route::get('/rental/{id}', [
         'uses' => 'PageController@rental',
-        'as' => 'message.p1',
+        'as' => 'rental.details',
         function ($id = '1') {
     }]);
 
