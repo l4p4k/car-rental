@@ -120,7 +120,7 @@ class RentalController extends Controller
 
         $rules = array(
             'message_txt' => 'required|string|max:255',
-            'file' => 'required|mimes:jpeg,bmp,png,mp3,mp4,avi|max:80000',
+            'file' => 'required|max:20000',
         );
 
         // Create a new validator instance.
@@ -128,12 +128,29 @@ class RentalController extends Controller
 
         //set message_file to 0 as default, meaning the rental has no file until validation succeeds
         $message_file = "0";
+        $mime_type = Input::file('file')->getClientMimeType();
 
         // If data is not valid
-        if ($validator->fails()) 
+        switch($mime_type)
         {
-            return Redirect::to(URL::previous())->withErrors($validator)->withInput();
-        }         
+            case "audio/wav":
+                break;
+            case "audio/mp3":
+                break;
+            case "video/mp4":
+                break;
+            case "video/avi":
+                break;
+            case "image/jpeg":
+                break;
+            case "image/png":
+                break;
+            case "image/bmp":
+                break;
+            default:
+                return $this->display_errors($validator);
+        }   
+        return $mime_type;
 
         // If the data passes validation
         if ($validator->passes()) 
@@ -164,12 +181,11 @@ class RentalController extends Controller
                     $message_file = $file_new_name;
                 }else
                 {
-                    // sending back with error message.
-                    // Session::flash('error', 'uploaded file is not valid');
-                    $imageValudation = array(
-                        'file' => "uploaded file is not valid",
+
+                    $fileValudation = array(
+                        'file' => "uploaded file is not valid"
                     );
-                    return Redirect::to(URL::previous())->withErrors($imageValudation)->withInput();
+                    return Redirect::to(URL::previous())->withErrors($fileValudation)->withInput();
                 }
             }
 
@@ -178,4 +194,9 @@ class RentalController extends Controller
             return Redirect::to(URL::previous());
         }
     }    
+
+    public function display_errors($validator)
+    {
+        return Redirect::to(URL::previous())->withErrors($validator)->withInput();
+    }
 }

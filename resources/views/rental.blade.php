@@ -68,7 +68,7 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('file') ? ' has-error' : '' }}">
-                            <label class="col-md-4 control-label">*File Upload</label>(max size: 8MB)
+                            <label class="col-md-4 control-label">*File Upload</label>(max size: 2MB)
 
                             <div class="col-md-6">
                                 <input type="file" class="form-control" name="file" value="{{ old('file') }}">
@@ -103,9 +103,7 @@
 
                 <div class="panel-body">
                 <div class="table-responsive">
-<!--                     <table class="table" style="width:100%">
-                        <tbody><tr><td> -->
-                @if($message_data!=NULL)
+                @if($message_data!=null)
                     @foreach($message_data as $message)
                         @if((!Auth::guest()) && (($message->messager_id == Auth::user()->id)))
                             <blockquote><p class="bg-warning">{{$message->message_txt}}<p>
@@ -147,7 +145,9 @@
                 @endif
 
 
-                {{ $message_data->appends(Request::except('page'))->render() }}
+                @if($message_data!=null)
+                    {{ $message_data->appends(Request::except('page'))->render() }}
+                @endif
                 </div>
             </div>            
 
