@@ -52,5 +52,10 @@
     Route::get('/messages', [
         'uses' => 'PageController@messages',
         'as' => 'message.page'
-    ]);    
+    ]);  
+
+   Route::post('/rent', [
+        'uses' => 'RentalController@rent',
+        'as' => 'rent'
+    ]);       
 // });

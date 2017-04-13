@@ -8,7 +8,15 @@
                 <div class="panel-heading">Message Information</div>
 
                 <div class="panel-body">
-                    There are NUM of messages
+                    @if($count!=NULL)
+                        @if($count=="1")
+                            There is {{$count}} message
+                        @else
+                            There are {{$count}} messages
+                        @endif
+                    @else
+                        There are 0 messages
+                    @endif
                 </div>
             </div>
 
@@ -27,7 +35,6 @@
                     </div>
             <!-- end of message data check -->
             @endif
-
         </div>
     </div>
 </div>

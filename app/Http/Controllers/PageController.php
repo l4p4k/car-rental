@@ -60,10 +60,12 @@ class PageController extends Controller
     {
         $rental = new Rental();
         $message_data = $rental->db_get_msgs_for_user(Auth::user()->id);
+        $count = $rental->db_count_msgs_for_user(Auth::user()->id);
 
         // return $message_data;
 
         return view('messages')
-        ->with('message_data', $message_data);
+        ->with('message_data', $message_data)
+        ->with('count', $count);
     }
 }

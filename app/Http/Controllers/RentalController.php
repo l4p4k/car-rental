@@ -206,7 +206,25 @@ class RentalController extends Controller
             $insert = $car_rental->db_add_msg($user_id, $formData['rental_id'], $formData['message_txt'], $message_file);
             return Redirect::to(URL::previous());
         }
-    }    
+    }
+
+    public function rent(Request $request)
+    {
+        $rental = new Rental();
+        $rental_id = $request->rental_id;
+        $getQuery = $rental::where('rental.rental_id', '=', $rental_id)->first();
+
+        $availability = "0";
+        if($getQuery->avail != "1")
+        {
+            $availability = "1";
+        }else
+        {
+            $availability = "0";
+        }
+        $rental::where('rental.rental_id', '=', $rental_id)->update(['rental.avail' => $availability]);
+        return Redirect::to(URL::previous());
+    }
 
     public function display_errors($validator)
     {

@@ -6,7 +6,35 @@
         <div class="col-md-10 col-md-offset-1">
             @if($rental_data!=NULL)
             <div class="panel panel-default">
-                <div class="panel-heading">Car information</div>
+                <div class="panel-heading">
+                    @if(!Auth::guest() && ($rental_data->user_id == Auth::user()->id))
+                        <form class="form-horizontal" role="form" method="POST" action="{{route('rent') }}">
+                            {!! csrf_field() !!}
+                                <input type="hidden" name="rental_id" value="{{$rental_data->rental_id}}">
+                                <input type="hidden" name="user_id" value="{{$rental_data->user_id}}">
+
+                                @if($rental_data->avail)
+                                    <p class="bg-info"><button type="submit" class="btn btn-info"><p>
+                                        Rent Car
+                                    </button> 
+                                @else
+                                    <p class="bg-danger"><button type="submit" class="btn btn-danger"><p>
+                                        Make Available
+                                    </button>                      
+                                @endif
+                        </form>
+                        @else
+                            @if($rental_data->avail)
+                                <b><p class="bg-info">
+                                    Available
+                                </p></b>
+                            @else
+                                <b><p class="bg-danger">
+                                    Not Available
+                                </p></b>
+                        @endif
+                    @endif
+                </div>
 
                 <div class="panel-body">
                     <h1>{{$rental_data->title}}</h1>
@@ -92,7 +120,7 @@
                                     <i class="fa fa-play"></i> Submit
                                 </button>
                             </div>
-                        </div>                           
+                        </div>
                     </form>
                 </div>
             </div>
@@ -113,10 +141,9 @@
                             {{$message->message_txt}}
                         @endif
 
-                        @if($message->message_file != null)
+                        @if($message->message_file != null && $message->message_file != "0")
                             <a href="/uploads/{{$message->message_file}}">Click to view file</a>
                         @else
-                            <p>*No file*</p>
                         @endif 
 
                         <footer><p>Posted by<b>

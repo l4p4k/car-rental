@@ -138,7 +138,19 @@ class RentalModel extends Model
         ->where('message.user_id', '=', $user_id)
         ->get();
     return $allMsgsQuery;
-    }       
+    }  
+
+    public function db_count_msgs_for_user($user_id)
+    {
+    $allMsgsQuery = DB::table('message')
+        ->select('message.*', 'message.user_id as messager_id','message.created_at as message_date', 'users.fname','users.sname','users.email', 'rental.rental_id', 'rental.user_id as poster_id', 'rental.title')
+        ->join('rental', 'rental.rental_id', '=', 'message.rental_id')
+        ->join('users', 'users.id', '=', 'message.user_id')
+        ->orderBy('message.message_id', 'DESC')
+        ->where('message.user_id', '=', $user_id)
+        ->count();
+    return $allMsgsQuery;
+    }  
 
     public function db_last_msg_for_rental($rental_id)
     {

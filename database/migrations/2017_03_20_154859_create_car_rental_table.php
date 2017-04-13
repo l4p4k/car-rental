@@ -26,7 +26,6 @@ class CreateCarRentalTable extends Migration
             $table->string('doors', 2);
             $table->double('engine_cc', 3, 2);
             $table->string('mpg', 3);
-            $table->string('contract_length', 50);
             $table->string('avail', 1);
             $table->string('img', 1);
             $table->timestamps();

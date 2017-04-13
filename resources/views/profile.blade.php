@@ -12,7 +12,6 @@
                     First Name: {{Auth::user()->fname}}<br>
                     Second Name: {{Auth::user()->sname}}<br>
                     Email: {{Auth::user()->email}}<br>
-                    Phone No: {{Auth::user()->phone}}<br>
                 </div>
             </div>
         </div>
