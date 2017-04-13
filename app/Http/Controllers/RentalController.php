@@ -64,7 +64,7 @@ class RentalController extends Controller
         // Create a new validator instance.
         $validator = Validator::make($formData, $rules);
 
-        //set item_image to 0 as default, meaning the item has no image until validation succeeds
+        //set item_image to 0 as default, meaning the rental has no image until validation succeeds
         $item_image = "0";
 
         // If data is not valid
@@ -120,11 +120,14 @@ class RentalController extends Controller
 
         $rules = array(
             'message_txt' => 'required|string|max:255',
-            'file' => 'required|mimes:jpeg,bmp,png,mp3,mp4,avi|max:100000',
+            'file' => 'required|mimes:jpeg,bmp,png,mp3,mp4,avi|max:80000',
         );
 
         // Create a new validator instance.
         $validator = Validator::make($formData, $rules);
+
+        //set message_file to 0 as default, meaning the rental has no file until validation succeeds
+        $message_file = "0";
 
         // If data is not valid
         if ($validator->fails()) 
@@ -158,7 +161,7 @@ class RentalController extends Controller
                     $file_new_name = $formData['rental_id'].".".$new_msg_id.".".$file_extension;
                     $file->move($file_destination, $file_new_name);
                     //file has been uploaded
-                    $message_file = "1";
+                    $message_file = $file_new_name;
                 }else
                 {
                     // sending back with error message.
@@ -171,7 +174,7 @@ class RentalController extends Controller
             }
 
             $car_rental = new Rental();
-            $insert = $car_rental->db_add_msg($user_id, $formData['rental_id'], $formData['message_txt']);
+            $insert = $car_rental->db_add_msg($user_id, $formData['rental_id'], $formData['message_txt'], $message_file);
             return Redirect::to(URL::previous());
         }
     }    

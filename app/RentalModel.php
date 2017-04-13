@@ -80,7 +80,7 @@ class RentalModel extends Model
 
     //messages
 
-    public function db_add_msg($user_id, $rental_id, $message_txt)
+    public function db_add_msg($user_id, $rental_id, $message_txt, $message_file)
     {
         //gets unix timestamp
         $time_now = $this->getTime();
@@ -92,6 +92,7 @@ class RentalModel extends Model
             'rental_id' => $rental_id, 
             'user_id' => $user_id, 
             'message_txt' => $message_txt,
+            'message_file' => $message_file,
             'created_at' => $time_now, 'updated_at' => ""]
         ]);
 

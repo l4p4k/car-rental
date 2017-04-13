@@ -68,7 +68,7 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('file') ? ' has-error' : '' }}">
-                            <label class="col-md-4 control-label">*File Upload</label>(max size: 2MB)
+                            <label class="col-md-4 control-label">*File Upload</label>(max size: 8MB)
 
                             <div class="col-md-6">
                                 <input type="file" class="form-control" name="file" value="{{ old('file') }}">
@@ -114,6 +114,13 @@
                         @else
                             {{$message->message_txt}}
                         @endif
+
+                        @if($message->message_file != null)
+                            <a href="/uploads/{{$message->message_file}}">Click to view file</a>
+                        @else
+                            <p>*No file*</p>
+                        @endif 
+
                         <footer><p>Posted by<b>
                             @if(!Auth::guest())
                                 @if($message->messager_id != Auth::user()->id)
