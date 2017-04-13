@@ -128,29 +128,42 @@ class RentalController extends Controller
 
         //set message_file to 0 as default, meaning the rental has no file until validation succeeds
         $message_file = "0";
-        $mime_type = Input::file('file')->getClientMimeType();
 
-        // If data is not valid
-        switch($mime_type)
+        if ($validator->fails()) 
         {
-            case "audio/wav":
-                break;
-            case "audio/mp3":
-                break;
-            case "video/mp4":
-                break;
-            case "video/avi":
-                break;
-            case "image/jpeg":
-                break;
-            case "image/png":
-                break;
-            case "image/bmp":
-                break;
-            default:
-                return $this->display_errors($validator);
-        }   
-        return $mime_type;
+            return $this->display_errors($validator);
+        } 
+
+        //if file was uploaded check mime type
+        if (Input::hasFile('file'))
+        {
+            //check mime type
+            $mime_type = Input::file('file')->getClientMimeType();
+
+            // If data is not valid
+            switch($mime_type)
+            {
+                case "audio/wav":
+                    break;
+                case "audio/mp3":
+                    break;
+                case "video/mp4":
+                    break;
+                case "video/avi":
+                    break;
+                case "image/jpeg":
+                    break;
+                case "image/png":
+                    break;
+                case "image/bmp":
+                    break;
+                default:
+                    $fileValudation = array(
+                        'file' => "Please upload either image(.png, .jpeg/.jpg or .bmp), audio(.mp3 or .wav) or video(.mp4 or .avi)"
+                    );
+                    return $this->display_errors($fileValudation);
+            }   
+        }
 
         // If the data passes validation
         if ($validator->passes()) 
