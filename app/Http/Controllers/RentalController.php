@@ -120,7 +120,7 @@ class RentalController extends Controller
 
         $rules = array(
             'message_txt' => 'required|string|max:255',
-            'file' => 'required|max:20000',
+            'file' => 'max:20000',
         );
 
         // Create a new validator instance.
