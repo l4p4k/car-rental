@@ -195,10 +195,10 @@ class RentalController extends Controller
                 }else
                 {
 
-                    $fileValudation = array(
+                    $fileValidation = array(
                         'file' => "uploaded file is not valid"
                     );
-                    return Redirect::to(URL::previous())->withErrors($fileValudation)->withInput();
+                    return Redirect::to(URL::previous())->withErrors($fileValidation)->withInput();
                 }
             }
 

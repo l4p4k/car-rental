@@ -109,7 +109,7 @@ class RentalModel extends Model
             ->where('message.rental_id', '=', $rental_id)
             ->paginate(3);
         return $query;
-    }    
+    }
 
     public function db_get_msgs_for_user($user_id)
     {

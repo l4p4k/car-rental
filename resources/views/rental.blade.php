@@ -68,7 +68,7 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('file') ? ' has-error' : '' }}">
-                            <label class="col-md-4 control-label">*File Upload</label>(max size: 2MB)
+                            <label class="col-md-4 control-label">File Upload</label>(max size: 2MB)
 
                             <div class="col-md-6">
                                 <input type="file" class="form-control" name="file" value="{{ old('file') }}">
