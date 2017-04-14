@@ -18,7 +18,7 @@
                             @else
                                 <h3 class="bg-danger"><button type="submit" class="btn btn-danger">
                                     Make Available
-                                </button> Status: Rented </h3>
+                                </button> @if($rental_data->avail == null) Status: Not Available @else Status: Rented @endif </h3>
                             @endif
 
                             <input type="hidden" name="rental_id" value="{{$rental_data->rental_id}}">
@@ -31,7 +31,7 @@
                             </h3>
                         @else
                             <h3 class="bg-danger">
-                                Status: Rented
+                                @if($rental_data->avail == null) Status: Not Available @else Status: Rented @endif 
                             </h3>
                         @endif
                     @endif
