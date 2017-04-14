@@ -21,62 +21,89 @@ class DatabaseSeeder extends Seeder
             'fname'            => "Ebrahim",
             'sname'            => "Ravat",
             'email'            => "eby_146@hotmail.co.uk",
-            'password'         => bcrypt('poop123')
+            'password'         => bcrypt('test123')
         ]);
 
         DB::table('users')->insert([
             'fname'            => "Bob",
-            'sname'            => "The builder",
+            'sname'            => "The Builder",
             'email'            => "eby_123@hotmail.co.uk",
-            'password'         => bcrypt('poop123')
-        ]);        
+            'password'         => bcrypt('test123')
+        ]);  
 
-        DB::table('rental')->insert([
-            'rental_id'        => "",
-            'user_id'          => "1",
-            'title'            => "Wanting Jaguar",
-            'description'      => "filler",
-            'make'             => "Jaguar",
-            'model'            => "Kat"
-        ]);
+        $faker = Faker::create('en_GB');
+        $num_of_users = 10;
+        $num_of_posts = 25;
 
-        DB::table('rental')->insert([
-            'rental_id'        => "",
-            'user_id'          => "2",
-            'title'            => "P1 cleaner than your church shoes",
-            'description'      => "I'm just tryna put you in the worst mood",
-            'make'             => "Mclaren",
-            'model'            => "P1",
-            'fuel'             => "Hybrid",
-            'mpg'              => "36"
-        ]);
+        foreach (range(1,$num_of_users) as $index) {
+            $name = $faker->firstName();
+            DB::table('users')->insert([
+                'fname'        => $name,
+                'sname'        => $faker->lastname(),
+                'email'        => $name."@".$faker->domainName,
+                'password'     => bcrypt('test123')
+            ]);
+        }       
 
-        DB::table('rental')->insert([
-            'rental_id'        => "",
-            'user_id'          => "1",
-            'title'            => "I'm a baws bruh",
-            'description'      => "this stuff is clever af",
-            'make'             => "Jeep",
-            'model'            => "Poopus",
-            'colour'           => "Green",
-            'type'             => "4x4/SUV",
-            'fuel'             => "Petrol",
-            'transmission'     => "1",
-            'doors'            => "5",
-            'engine_cc'        => "2.2",
-            'mpg'              => "30"
-        ]);
+        foreach (range(1,$num_of_posts) as $index) {
+            DB::table('rental')->insert([
+                'user_id'          => $faker->numberBetween(1,$num_of_users),
+                'title'            => $faker->word." ".$faker->word,
+                'description'      => $faker->paragraph,
+                'make'             => $this->randomCarType(),
+                'model'            => $faker->word
+            ]);
+        }              
+    }
 
-        DB::table('rental')->insert([
-            'rental_id'        => "",
-            'user_id'          => "1",
-            'title'            => "I want a gud car",
-            'description'      => "pls gimmi",
-            'make'             => "Mini",
-            'model'            => "Cooper S",
-            'fuel'             => "Deisel",
-            'engine_cc'        => "1.6",
-            'mpg'              => "40"
-        ]);
+    public function randomCarType(){
+        $randomNum = rand(1,15);
+        switch ($randomNum) {
+            case "1":
+                return "Aston Martin";
+                break;
+            case "2":
+                return "Bentley";
+                break;
+            case "3":
+                return "Jaguar";
+                break;
+            case "4":
+                return "Land Rover";
+                break;
+            case "5":
+                return "McLaren";
+                break;
+            case "6":
+                return "Mini";
+                break;
+            case "7":
+                return "Rolls Royce";
+                break;
+            case "8":
+                return "Chevrolet";
+                break;
+            case "9":
+                return "Cadillac";
+                break;
+            case "10":
+                return "Chrystler";
+                break;
+            case "11":
+                return "Dodge";
+                break;
+            case "12":
+                return "Ford";
+                break;
+            case "13":
+                return "GMC";
+                break;
+            case "14":
+                return "Jeep";
+                break;
+            case "15":
+                return "Tesla";
+                break;
+        }
     }
 }
