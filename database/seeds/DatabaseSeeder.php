@@ -51,7 +51,8 @@ class DatabaseSeeder extends Seeder
                 'title'            => $faker->word." ".$faker->word,
                 'description'      => $faker->paragraph,
                 'make'             => $this->randomCarType(),
-                'model'            => $faker->word
+                'model'            => $faker->word,
+                'avail'            => $faker->numberBetween(0,1)
             ]);
         }              
     }
