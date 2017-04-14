@@ -45,7 +45,7 @@ class RentalModel extends Model
                 ->join('rental', 'users.id', '=', 'rental.user_id')
                 ->select('users.id', 'users.fname', 'users.sname','users.email', 'rental.*')
                 ->orderBy('rental.rental_id', 'DESC')
-                ->paginate(3);
+                ->paginate(5);
             return $query;
         }else
         {
@@ -107,7 +107,7 @@ class RentalModel extends Model
             ->join('users', 'users.id', '=', 'message.user_id')
             ->orderBy('message.message_id', 'DESC')
             ->where('message.rental_id', '=', $rental_id)
-            ->paginate(3);
+            ->paginate(5);
         return $query;
     }
 

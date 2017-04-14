@@ -12,13 +12,21 @@
                         @foreach($rental_data as $rental)
                         <table class="table table-hover"><tbody><tr><td>                     
                             <a href="/rental/{{$rental->rental_id}}" style="text-decoration:none"><h3>
-                                {{$rental->title}}
+                                @if($rental->avail)
+                                <b><p class="bg-success">
+                                    {{$rental->title}}
+                                </p></b>
+                                @else
+                                <b><p class="bg-danger">
+                                    {{$rental->title}}
+                                </p></b>
+                                @endif
                             </h3>
                             <div>
                             @if($rental->img)
-                                <img src="/uploads/{{$rental->rental_id}}.png" class="img-responsive" width="50%" alt="Image">
+                                <img src="/uploads/{{$rental->rental_id}}.png" class="img-responsive" width="30%" alt="Image">
                             @else
-                                <img src="/site_images/no image.png" class="img-responsive img-circle" alt="no image">
+                                <img src="/site_images/no image.png" class="img-responsive img-circle" width="20%" alt="no image">
                             @endif   
                             </div>
                             <p>{{$rental->make}} {{$rental->model}}</p>

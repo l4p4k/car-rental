@@ -10,28 +10,29 @@
                     @if(!Auth::guest() && ($rental_data->user_id == Auth::user()->id))
                         <form class="form-horizontal" role="form" method="POST" action="{{route('rent') }}">
                             {!! csrf_field() !!}
-                                <input type="hidden" name="rental_id" value="{{$rental_data->rental_id}}">
-                                <input type="hidden" name="user_id" value="{{$rental_data->user_id}}">
 
-                                @if($rental_data->avail)
-                                    <p class="bg-info"><button type="submit" class="btn btn-info"><p>
-                                        Rent Car
-                                    </button> 
-                                @else
-                                    <p class="bg-danger"><button type="submit" class="btn btn-danger"><p>
-                                        Make Available
-                                    </button>                      
-                                @endif
-                        </form>
-                        @else
                             @if($rental_data->avail)
-                                <b><p class="bg-info">
-                                    Available
-                                </p></b>
+                                <h3 class="bg-success"><button type="submit" class="btn btn-success">
+                                    Rent Car
+                                </button> Status: Available </h3>
                             @else
-                                <b><p class="bg-danger">
-                                    Not Available
-                                </p></b>
+                                <h3 class="bg-danger"><button type="submit" class="btn btn-danger">
+                                    Make Available
+                                </button> Status: Rented </h3>
+                            @endif
+
+                            <input type="hidden" name="rental_id" value="{{$rental_data->rental_id}}">
+                            <input type="hidden" name="user_id" value="{{$rental_data->user_id}}">
+                        </form>
+                    @else
+                        @if($rental_data->avail)
+                            <b><p class="bg-info">
+                                Available
+                            </p></b>
+                        @else
+                            <b><p class="bg-danger">
+                                Not Available
+                            </p></b>
                         @endif
                     @endif
                 </div>
