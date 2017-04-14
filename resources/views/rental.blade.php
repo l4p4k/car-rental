@@ -26,13 +26,13 @@
                         </form>
                     @else
                         @if($rental_data->avail)
-                            <b><p class="bg-info">
-                                Available
-                            </p></b>
+                            <h3 class="bg-success">
+                                Status: Available
+                            </h3>
                         @else
-                            <b><p class="bg-danger">
-                                Not Available
-                            </p></b>
+                            <h3 class="bg-danger">
+                                Status: Rented
+                            </h3>
                         @endif
                     @endif
                 </div>
