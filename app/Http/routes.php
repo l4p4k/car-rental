@@ -28,6 +28,10 @@
         'as' => 'home'
     ]);
 
+    Route::get('/home', [
+        'uses' => 'PageController@index'
+    ]);    
+
     Route::get('/new_rental', [
         'uses' => 'PageController@view_new_car',
         'as' => 'rental.page'

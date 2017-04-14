@@ -22,7 +22,6 @@
                             @endif
 
                             <input type="hidden" name="rental_id" value="{{$rental_data->rental_id}}">
-                            <input type="hidden" name="user_id" value="{{$rental_data->user_id}}">
                         </form>
                     @else
                         @if($rental_data->avail)
