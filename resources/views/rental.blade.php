@@ -126,6 +126,7 @@
             </div>
             @endif
 
+            @if(!Auth::guest())
             <div class="panel panel-default">
                 <div class="panel-heading">Messages on this post</div>
 
@@ -133,43 +134,38 @@
                 <div class="table-responsive">
                 @if($message_data!=null)
                     @foreach($message_data as $message)
-                        @if((!Auth::guest()) && (($message->messager_id == Auth::user()->id)))
-                            <blockquote><p class="bg-warning">{{$message->message_txt}}<p>
-                        @elseif($message->messager_id == $message->poster_id)
-                            <blockquote><p class="bg-primary">{{$message->message_txt}}<p>
-                        @else
-                            {{$message->message_txt}}
-                        @endif
 
-                        @if($message->message_file != null && $message->message_file != "0")
-                            <a href="/uploads/{{$message->message_file}}">Click to view file</a>
-                        @else
-                        @endif 
+                            @if($message->messager_id == Auth::user()->id)
+                                <blockquote><p class="bg-warning">{{$message->message_txt}}<p>
+                            @else
+                                <blockquote><p class="bg-primary">{{$message->message_txt}}<p>
+                            @endif
 
-                        <footer><p>Posted by<b>
-                            @if(!Auth::guest())
-                                @if($message->messager_id != Auth::user()->id)
-                                    @if($message->messager_id == $message->poster_id)
-                                        Owner
-                                    @else
-                                        {{$message->email}}
-                                    @endif
+                            @if($message->message_file != null && $message->message_file != "0")
+                                    <a href="/uploads/{{$message->message_file}}">Click to view file</a>
+                            @else
+                                    <!-- Nothing -->
+                            @endif 
+
+                            <footer><p>Posted by<b>
+                            @if($message->messager_id != Auth::user()->id)
+                                @if($message->messager_id == $message->poster_id)
+                                    Owner
                                 @else
-                                    You
+                                    {{$message->email}}
                                 @endif
                             @else
-                                @if($message->messager_id != $message->poster_id)
-                                    {{$message->email}}
-                                @else
-                                    Owner
-                                @endif
-                            @endif</b></p></footer></blockquote>
+                                You
+                            @endif
+                            </b></p></footer></blockquote>
                             <p>{{$message->message_date}}</p>
-                        <hr>
+                            <hr>
+
                     @endforeach        
                 @else
-                    <p>No messages<p>
+                    <!-- Nothing -->
                 @endif
+
 
 
                 @if($message_data!=null)
@@ -181,6 +177,8 @@
             <!-- end of rental data check -->
             @endif
         </div>
+        @endif
+
     </div>
 </div>
 @endsection

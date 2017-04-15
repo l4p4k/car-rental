@@ -32,6 +32,7 @@ class RentalController extends Controller
         //get authorised user's ID
         $user_id = Auth::user()->id;
         
+        //place form data into array
         $formData = array(
             'title' => $request->input('title'),
             'desc' => $request->input('desc'),
@@ -46,7 +47,7 @@ class RentalController extends Controller
             'img' => Input::file('img')
         );
 
-        // Build the validation rules.
+        // set validation rules.
         $rules = array(
             'title' => 'required|string|max:50|min:10',
             'desc' => 'required|string|max:255|min:20',
@@ -61,13 +62,13 @@ class RentalController extends Controller
             'img' => 'required|mimes:jpeg,bmp,png|max:20000',
         );
 
-        // Create a new validator instance.
+        // create a new validator instance.
         $validator = Validator::make($formData, $rules);
 
         //set item_image to 0 as default, meaning the rental has no image until validation succeeds
         $item_image = "0";
 
-        // If data is not valid
+        // if data is not valid
         if ($validator->fails()) 
         {
             return Redirect::to(URL::previous())->withErrors($validator)->withInput();
@@ -85,6 +86,7 @@ class RentalController extends Controller
                     //get new rental id
                     $new_rental_id = DB::table('rental')->orderBy('rental_id', 'desc')->first()->rental_id + 1;
 
+                    //set up image before copying/uploading
                     $image_destination = "uploads";
                     $image_extension = "png";
                     $image_new_name = $new_rental_id.".".$image_extension;
