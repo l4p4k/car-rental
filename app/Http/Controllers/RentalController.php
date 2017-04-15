@@ -26,6 +26,9 @@ class RentalController extends Controller
         $this->middleware('auth');
     }
 
+    /**
+     * add a new rental post
+     */
     public function db_add_rental(Request $request)
     {
 
@@ -104,13 +107,19 @@ class RentalController extends Controller
                 }
             }
 
+            //instantiate model
             $car_rental = new Rental();
+            //insert new rental post
             $insert = $car_rental->db_add_rental($new_rental_id, $user_id, $formData['title'], $formData['desc'], $formData['make'],$formData['model'], $formData['type'], 
             $formData['fuel'], $formData['transmission'], $formData['doors'], $formData['engine'], $formData['mpg'], $rental_image);
+            //return to home view
             return redirect()->route('home');
         }
     }
 
+    /**
+     * add a new message
+     */
     public function db_add_message(Request $request)
     {
         //get authorised user's ID
@@ -209,12 +218,18 @@ class RentalController extends Controller
                 }
             }
 
+            //instantiate model
             $car_rental = new Rental();
+            //add new message to rental post
             $insert = $car_rental->db_add_msg($user_id, $formData['rental_id'], $formData['message_txt'], $message_file);
+            //return to previous view
             return Redirect::to(URL::previous());
         }
     }
 
+    /**
+     * change availability/rent status
+     */
     public function rent(Request $request)
     {
         //instantiate model
@@ -240,7 +255,9 @@ class RentalController extends Controller
         return Redirect::to(URL::previous());
     }
 
-    //validation errors
+    /**
+     * display validation errors
+     */
     public function display_errors($validator)
     {
         return Redirect::to(URL::previous())->withErrors($validator)->withInput();
