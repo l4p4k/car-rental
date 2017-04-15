@@ -47,7 +47,7 @@ class PageController extends Controller
     /**
      * Show the page to create a new car rental page.
      */
-    public function view_new_car()
+    public function new_rental()
     {
         //show new car page with data
         return view('new_car');

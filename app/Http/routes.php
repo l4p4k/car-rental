@@ -38,7 +38,7 @@
 
     //new rental post page route
     Route::get('/new_rental', [
-        'uses' => 'PageController@view_new_car',
+        'uses' => 'PageController@new_rental',
         'as' => 'rental.page'
     ]);
 
