@@ -71,7 +71,7 @@ class RentalController extends Controller
         // if data is not valid
         if ($validator->fails()) 
         {
-            return Redirect::to(URL::previous())->withErrors($validator)->withInput();
+            return $this->display_errors($validator);
         }         
 
         // If the data passes validation
@@ -100,7 +100,7 @@ class RentalController extends Controller
                     $imageValudation = array(
                         'img' => "uploaded file is not valid",
                     );
-                    return Redirect::to(URL::previous())->withErrors($imageValudation)->withInput();
+                    return $this->display_errors($imageValudation);
                 }
             }
 
@@ -162,6 +162,7 @@ class RentalController extends Controller
                 case "image/bmp":
                     break;
                 default:
+                    //custom validation
                     $fileValudation = array(
                         'file' => "Please upload either image(.png, .jpeg/.jpg or .bmp), audio(.mp3 or .wav) or video(.mp4 or .avi)"
                     );
@@ -180,6 +181,7 @@ class RentalController extends Controller
                 {
                     //get new rental id
                     $new_msg_id = DB::table('message')->where('rental_id', "=", $formData['rental_id'])->orderBy('rental_msg_id', 'desc')->first();
+                    //if data is not then increment, otherwise new message id will be 1
                     if($new_msg_id!=null)
                     {
                         $new_msg_id = $new_msg_id->rental_msg_id + 1;
@@ -188,6 +190,7 @@ class RentalController extends Controller
                         $new_msg_id = 1;
                     }
 
+                    //setup file to upload
                     $file = Input::file('file');
                     $file_destination = "uploads";
                     $file_extension = $file->getClientOriginalExtension();
@@ -202,7 +205,7 @@ class RentalController extends Controller
                     $fileValidation = array(
                         'file' => "uploaded file is not valid"
                     );
-                    return Redirect::to(URL::previous())->withErrors($fileValidation)->withInput();
+                    return $this->display_errors($fileValudation);
                 }
             }
 
@@ -214,11 +217,16 @@ class RentalController extends Controller
 
     public function rent(Request $request)
     {
+        //instantiate model
         $rental = new Rental();
+        //get rental post id
         $rental_id = $request->rental_id;
+        //get rental post
         $getQuery = $rental::where('rental.rental_id', '=', $rental_id)->first();
 
+        //default value = 0
         $availability = "0";
+        // change availability depending on old value from database
         if($getQuery->avail != "1")
         {
             $availability = "1";
@@ -226,10 +234,13 @@ class RentalController extends Controller
         {
             $availability = "0";
         }
+        //update availability
         $rental::where('rental.rental_id', '=', $rental_id)->update(['rental.avail' => $availability]);
+        //return back
         return Redirect::to(URL::previous());
     }
 
+    //validation errors
     public function display_errors($validator)
     {
         return Redirect::to(URL::previous())->withErrors($validator)->withInput();

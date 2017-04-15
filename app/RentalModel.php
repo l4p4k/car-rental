@@ -176,10 +176,11 @@ class RentalModel extends Model
     }  
 
     /**
-    * 
+    * get last message for rental post
     */
     public function db_last_msg_for_rental($rental_id)
     {
+        //sort by descending order and get topmost row of data
         $query = DB::table('message')
             ->select('message.*', 'users.fname','users.sname','users.email', 'rental.*')
             ->join('rental', 'rental.rental_id', '=', 'message.rental_id')
@@ -187,6 +188,8 @@ class RentalModel extends Model
             ->orderBy('message.message_id', 'DESC')
             ->where('message.rental_id', '=', $rental_id)
             ->first();
+
+            //if there is no data return 0, else return latest id of message per rental post
             if($query == null)
             {
                 return '0';
