@@ -155,6 +155,7 @@ class RentalModel extends Model
             ->join('rental', 'rental.rental_id', '=', 'message.rental_id')
             ->join('users', 'users.id', '=', 'rental.user_id')
             ->orderBy('message.message_id', 'DESC')
+            ->where('rental.user_id', '=', $user_id)
             ->paginate(5);
         return $allMsgsQuery;
     }  
@@ -169,6 +170,7 @@ class RentalModel extends Model
             ->join('rental', 'rental.rental_id', '=', 'message.rental_id')
             ->join('users', 'users.id', '=', 'rental.user_id')
             ->orderBy('message.message_id', 'DESC')
+            ->where('rental.user_id', '=', $user_id)
             ->count();
         return $allMsgsQuery;
     }  
