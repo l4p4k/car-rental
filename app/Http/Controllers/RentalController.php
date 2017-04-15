@@ -50,7 +50,7 @@ class RentalController extends Controller
         // set validation rules.
         $rules = array(
             'title' => 'required|string|max:50|min:10',
-            'desc' => 'required|string|max:255|min:20',
+            'desc' => 'required|string|max:255',
             'make' => 'required|string|max:20|min:1',
             'model' => 'required|string|max:30|min:1',
             'type' => 'string|max:20|min:1',
