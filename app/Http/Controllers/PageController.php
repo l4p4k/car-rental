@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests;
-use Illuminate\Http\Request;
-
 use App\RentalModel as Rental;
+use App\Http\Requests;
+
+use Illuminate\Http\Request;
 
 use Auth;
 
@@ -62,14 +62,7 @@ class PageController extends Controller
         $rental = new Rental();
         //get rental information and messages for that post
         $rental_data = $rental->db_get_rental_by_id($id);
-        if(!Auth::guest())
-        {
-            $poster_id = $rental_data->user_id;
-            $message_data = $rental->db_get_msgs_for_rental($id, Auth::user()->id, $poster_id);
-        }else
-        {
-            $message_data = null;
-        }
+        $message_data = $rental->db_get_msgs_for_rental($id);
 
         //show rental page with data
         return view('rental')

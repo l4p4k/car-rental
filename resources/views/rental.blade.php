@@ -8,7 +8,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     @if(!Auth::guest() && ($rental_data->user_id == Auth::user()->id))
-                        <form class="form-horizontal" role="form" method="POST" action="{{route('rent') }}">
+                        <form class="form-horizontal" role="form" method="POST" action="{{route('rental.rent') }}">
                             {!! csrf_field() !!}
 
                             @if($rental_data->avail)
@@ -131,53 +131,56 @@
                 <div class="panel-heading">Messages on this post</div>
 
                 <div class="panel-body">
-                <div class="table-responsive">
-                @if($message_data!=null)
-                    @foreach($message_data as $message)
-
-                            @if($message->messager_id == Auth::user()->id)
-                                <blockquote><p class="bg-warning">{{$message->message_txt}}<p>
-                            @else
-                                <blockquote><p class="bg-primary">{{$message->message_txt}}<p>
-                            @endif
-
-                            @if($message->message_file != null && $message->message_file != "0")
-                                    <a href="/uploads/{{$message->message_file}}">Click to view file</a>
-                            @else
-                                    <!-- Nothing -->
-                            @endif 
-
-                            <footer><p>Posted by<b>
-                            @if($message->messager_id != Auth::user()->id)
-                                @if($message->messager_id == $message->poster_id)
-                                    Owner
+                    <div class="table-responsive">
+                        @if($message_data!=null)
+                            @foreach($message_data as $message)
+                                @if((!Auth::guest()) && (($message->messager_id == Auth::user()->id)))
+                                    <blockquote><p class="bg-warning">{{$message->message_txt}}<p>
+                                @elseif($message->messager_id == $message->poster_id)
+                                    <blockquote><p class="bg-primary">{{$message->message_txt}}<p>
                                 @else
-                                    {{$message->email}}
+                                    {{$message->message_txt}}
                                 @endif
-                            @else
-                                You
-                            @endif
-                            </b></p></footer></blockquote>
-                            <p>{{$message->message_date}}</p>
+
+                                @if($message->message_file != null && $message->message_file != "0")
+                                    <a href="/uploads/{{$message->message_file}}">Click to view file</a>
+                                @else
+                                    <!-- No Image -->
+                                @endif
+         
+                                <footer><p>Posted by<b>
+                                @if(!Auth::guest())
+                                    @if($message->messager_id != Auth::user()->id)
+                                        @if($message->messager_id == $message->poster_id)
+                                            Owner
+                                        @else
+                                            {{$message->email}}
+                                        @endif
+                                    @else
+                                        You
+                                    @endif
+                                @else
+                                    @if($message->messager_id != $message->poster_id)
+                                        {{$message->email}}
+                                    @else
+                                        Owner
+                                    @endif
+                                @endif</b></p></footer></blockquote>
+                                <p>{{$message->message_date}}</p>
                             <hr>
-
-                    @endforeach        
-                @else
-                    <!-- Nothing -->
-                @endif
-
-
-
-                @if($message_data!=null)
-                    {{ $message_data->appends(Request::except('page'))->render() }}
-                @endif
+                        @endforeach   
+                            {{ $message_data->appends(Request::except('page'))->render() }} 
+                        @else
+                            <!-- Nothing -->
+                        @endif
+                    </div>
                 </div>
-            </div>            
-
-            <!-- end of rental data check -->
+            <!-- end if guest check -->
             @endif
-        </div>
+            </div>
+        <!-- end of rental data check -->
         @endif
+        </div>
 
     </div>
 </div>
