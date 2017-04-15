@@ -26,7 +26,7 @@
                             @if($rental->img)
                                 <img src="/uploads/{{$rental->rental_id}}.png" class="img-responsive" width="30%" alt="Image">
                             @else
-                                <img src="/site_images/no image.png" class="img-responsive img-circle" width="20%" alt="no image">
+                                <img src="/site_images/no image.png" class="img-responsive img-circle" width="30%" alt="no image">
                             @endif   
                             </div>
                             <p>{{$rental->make}} {{$rental->model}}</p>

@@ -22,7 +22,7 @@
 
             @if($message_data!=NULL)
                 <div class="panel panel-default">
-                    <div class="panel-heading">Your messages</div>
+                    <div class="panel-heading">Messages on your posts</div>
 
                     <div class="panel-body">
                         @foreach($message_data as $message)
@@ -31,6 +31,7 @@
                             <a href="/rental/{{$message->rental_id}}">Post: <b>{{$message->title}} </b></a>
                             <hr>
                         @endforeach
+                        {{ $message_data->appends(Request::except('page'))->render() }} 
                         </div>
                     </div>
             <!-- end of message data check -->

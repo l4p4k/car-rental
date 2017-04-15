@@ -4,6 +4,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
+            <!-- if data is not present -->
             @if($rental_data!=NULL)
             <div class="panel panel-default">
                 <div class="panel-heading">

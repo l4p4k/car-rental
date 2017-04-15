@@ -13,21 +13,31 @@ class RentalModel extends Model
         return $this->belongsTo('App\User');
     }
 
-    //
+    //makes the table accessible through this model
     protected $table = "rental";
 
+    /**
+    * gets timestamp
+    */
     public function getTime()
     {
         //gets unix timestamp
         $date = new DateTime();
+        //format time and date
         $time_now = $date->format('Y-m-d H:i:s');
+        //return
         return $time_now;
     }
 
+    /**
+    * add a new rental post
+    */
     public function db_add_rental($rental_id, $user_id, $title, $desc, $make, $model, $type, $fuel, $transmission, $doors, $engine, $mpg, $rental_image)
     {
+        //gets timestamp from function
         $time_now = $this->getTime();
 
+        //inserts into database
         $query = DB::table('rental')->insert([
             ['rental_id' => $rental_id, 'user_id' => $user_id, 'title' => $title, 'description' => $desc, 'make' => $make, 'model' => $model,  'type' => $type,
             'fuel' => $fuel, 'transmission' => $transmission,  'doors' => $doors, 'engine_cc' => $engine, 'mpg' => $mpg, 'img' => $rental_image,
@@ -37,8 +47,12 @@ class RentalModel extends Model
         return $query;
     }
 
+    /**
+    * get either paginated or full list of rental posts
+    */
     public function db_get_rentals($page)
     {
+        //if variable is true, return paginated list
         if($page == "page")
         {
             $query = DB::table('users')
@@ -58,8 +72,12 @@ class RentalModel extends Model
         }
     }
 
+    /**
+    * get specific rental post
+    */
     public function db_get_rental_by_id($rental_id)
     {
+        //get rental post with a certain id
         $query = DB::table('users')
             ->join('rental', 'users.id', '=', 'rental.user_id')
             ->select('users.id', 'users.fname', 'users.sname','users.email', 'rental.*')
@@ -68,8 +86,12 @@ class RentalModel extends Model
         return $query;
     }
 
+    /**
+    * get rental posts by a certain user
+    */
     public function db_get_rentals_by_user($user_id)
     {
+        //get rental posts that the user has created
         $query = DB::table('rental')
             ->join('users', 'rental.user_id', '=', 'users.id')
             ->select('users.id', 'users.fname', 'users.sname','users.email', 'rental.*')
@@ -78,14 +100,20 @@ class RentalModel extends Model
         return $query;
     }    
 
-    //messages
+    //messages --------------------------------------------------------------------------------
 
+    /**
+    * add a message to the rental post
+    */
     public function db_add_msg($user_id, $rental_id, $message_txt, $message_file)
     {
-        //gets unix timestamp
+        //gets unix timestamp from function
         $time_now = $this->getTime();
+
+        //get message id of last message within rental post and increment by 1        
         $rental_msg_id = $this->db_last_msg_for_rental($rental_id)+1;
 
+        //insert data into database
         $query = DB::table('message')->insert([
             ['message_id' => "", 
             'rental_msg_id' => $rental_msg_id,  
@@ -99,8 +127,12 @@ class RentalModel extends Model
         return $query;
     }
 
+    /**
+    * get messages for that rental post
+    */
     public function db_get_msgs_for_rental($rental_id)
     {
+        //get all messages where it matches rental post's id
         $query = DB::table('message')
             ->select('message.*', 'message.user_id as messager_id','message.created_at as message_date', 'users.fname','users.sname','users.email', 'rental.rental_id', 'rental.user_id as poster_id', 'rental.title')
             ->join('rental', 'rental.rental_id', '=', 'message.rental_id')
@@ -111,31 +143,39 @@ class RentalModel extends Model
         return $query;
     }
 
+    /**
+    * get messages for user
+    */
     public function db_get_msgs_for_user($user_id)
     {
 
-    $allMsgsQuery = DB::table('message')
-        ->select('message.*', 'message.user_id as messager_id','message.created_at as message_date', 'users.fname','users.sname','users.email', 'rental.rental_id', 'rental.user_id as poster_id', 'rental.title')
-        ->join('rental', 'rental.rental_id', '=', 'message.rental_id')
-        ->join('users', 'users.id', '=', 'message.user_id')
-        ->orderBy('message.message_id', 'DESC')
-        ->where('message.user_id', '=', $user_id)
-        ->get();
-    return $allMsgsQuery;
+        //get nessages that match user's id
+        $allMsgsQuery = DB::table('message')
+            ->select('message.*', 'message.user_id as messager_id','message.created_at as message_date', 'users.fname','users.sname','users.email', 'rental.rental_id', 'rental.user_id as poster_id', 'rental.title')
+            ->join('rental', 'rental.rental_id', '=', 'message.rental_id')
+            ->join('users', 'users.id', '=', 'rental.user_id')
+            ->orderBy('message.message_id', 'DESC')
+            ->paginate(5);
+        return $allMsgsQuery;
     }  
 
+    /**
+    * count up number of messages user has posted
+    */
     public function db_count_msgs_for_user($user_id)
     {
-    $allMsgsQuery = DB::table('message')
-        ->select('message.*', 'message.user_id as messager_id','message.created_at as message_date', 'users.fname','users.sname','users.email', 'rental.rental_id', 'rental.user_id as poster_id', 'rental.title')
-        ->join('rental', 'rental.rental_id', '=', 'message.rental_id')
-        ->join('users', 'users.id', '=', 'message.user_id')
-        ->orderBy('message.message_id', 'DESC')
-        ->where('message.user_id', '=', $user_id)
-        ->count();
-    return $allMsgsQuery;
+        $allMsgsQuery = DB::table('message')
+            ->select('message.*', 'message.user_id as messager_id','message.created_at as message_date', 'users.fname','users.sname','users.email', 'rental.rental_id', 'rental.user_id as poster_id', 'rental.title')
+            ->join('rental', 'rental.rental_id', '=', 'message.rental_id')
+            ->join('users', 'users.id', '=', 'rental.user_id')
+            ->orderBy('message.message_id', 'DESC')
+            ->count();
+        return $allMsgsQuery;
     }  
 
+    /**
+    * 
+    */
     public function db_last_msg_for_rental($rental_id)
     {
         $query = DB::table('message')

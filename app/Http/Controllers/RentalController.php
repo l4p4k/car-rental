@@ -96,6 +96,7 @@ class RentalController extends Controller
                     $rental_image = "1";
                 }else
                 {
+                    //custom validation message
                     $imageValudation = array(
                         'img' => "uploaded file is not valid",
                     );
@@ -104,7 +105,8 @@ class RentalController extends Controller
             }
 
             $car_rental = new Rental();
-            $insert = $car_rental->db_add_rental($new_rental_id, $user_id, $formData['title'], $formData['desc'], $formData['make'],$formData['model'], $formData['type'], $formData['fuel'], $formData['transmission'], $formData['doors'], $formData['engine'], $formData['mpg'], $rental_image);
+            $insert = $car_rental->db_add_rental($new_rental_id, $user_id, $formData['title'], $formData['desc'], $formData['make'],$formData['model'], $formData['type'], 
+            $formData['fuel'], $formData['transmission'], $formData['doors'], $formData['engine'], $formData['mpg'], $rental_image);
             return redirect()->route('home');
         }
     }
@@ -196,7 +198,7 @@ class RentalController extends Controller
                     $message_file = $file_new_name;
                 }else
                 {
-
+                    //custom validation message
                     $fileValidation = array(
                         'file' => "uploaded file is not valid"
                     );
